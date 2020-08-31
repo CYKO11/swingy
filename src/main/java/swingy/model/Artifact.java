@@ -2,7 +2,6 @@ package swingy.model;
 
 
 public class Artifact {
-    private static Artifact artifact = new Artifact();
     private static String type;
     private static String name;
     private static int damage;
@@ -10,8 +9,13 @@ public class Artifact {
     private static int armour;
     private static int rarity;
 
-    Artifact(){
-        String[] drop = Item.item().getDrop();
+    public Artifact(String ItemName){
+        String[] drop;
+        if (ItemName == ""){
+            drop = Item.item().getDrop();
+        } else {
+            drop = Item.item().getItem(ItemName);
+        }
         name = drop[0];
         damage = Integer.parseInt(drop[1]);
         armour = Integer.parseInt(drop[2]);
@@ -20,27 +24,19 @@ public class Artifact {
         type = drop[5];
     }
 
-    public static Artifact getArtifact(){
-        return (artifact);
-    }
     public String getName(){
         return name;
     }
+    public String getType(){ return type; }
+    public int getRarity(){ return rarity; }
     public int getDamage(){
         return damage;
     }
     public int getArmour(){
         return armour;
     }
-    public int getHp(){
-        return hp;
-    }
-    public String getType(){
-        return type;
-    }
-    public int getRarity(){
-        return rarity;
-    }
+    public int getHp(){ return hp; }
+
 }
 
 class Item {
@@ -105,6 +101,16 @@ class Item {
         }
         int weapon = rollItem(rarity);
         return items[weapon];
+    }
+    public String[] getItem(String name){
+        int pos = 0;
+        while (pos < items.length){
+            if (items[pos][0] == name){
+                return items[pos];
+            }
+            pos++;
+        }
+        return null;
     }
 
     public int rollItem(int rarity) {
