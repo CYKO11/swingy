@@ -11,15 +11,20 @@ public class Engine {
     private Renderer gameRenderer = new Renderer();
 
     public void init() throws IOException {
+        System.out.println("Welcome to WOW");
+        menu();
+    }
+    void menu() throws IOException {
         String in = gameRenderer.terminalRender(
-                "Welcome to wow\n" + "load game or start new options: load , new",
-                new String[]{"load", "new"},
+                "Main menu\nLoad (load)\nNew game (new)",
+                new String[]{"load","new"},
                 1
         );
-        if (in.equals("new"))
-            create();
-        else if (in.equals("load"))
+        if (in.equals("load")){
             load();
+        } else {
+            create();
+        }
     }
     void create() throws IOException {
         String name = gameRenderer.terminalRender(
@@ -33,13 +38,14 @@ public class Engine {
                 1
         );
         gameData.createHero(name, heroClass);
-        echoStats();
+        preGame();
     }
     void load(){}
     void save(){}
-    void game(){}
-    void echoStats(){
-        System.out.println(gameData.getHero().getName());
-        System.out.println(gameData.getHero().getHeroClass());
+    void preGame(){
+        Hero hero = gameData.getHero();
+        System.out.print("Hero " + hero.getName() + "\n");
+        System.out.print("Stats " + hero.getStats().getXp() + "\n");
     }
+    void game(){}
 }

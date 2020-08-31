@@ -8,8 +8,8 @@ public class Hero {
     private Stats               stats;
     private String              name;
     private String              heroClass;
-    private List<String>        backPack = new ArrayList<>();
-    private List<String>        equipped = new ArrayList<>();
+    private List<Artifact>      backPack = new ArrayList<>();
+    private List<Artifact>      equipped = new ArrayList<>();
 
     public Stats getStats() {
         return stats;
@@ -55,20 +55,20 @@ public class Hero {
         this.name = name;
         this.heroClass = Class;
         int i = 0;
-        while (backpack[i] != null) {
-            updateBackPack(backpack[i]);
-            i++;
-        }
-        i = 0;
-        while (equipment[i] != null){
-            equipItem(equipment[i]);
-            i++;
-        }
+//        while (backpack[i] != null) {
+//            updateBackPack(backpack[i]);
+//            i++;
+//        }
+//        i = 0;
+//        while (equipment[i] != null){
+//            equipItem(equipment[i]);
+//            i++;
+//        }
         System.out.println("hero loaded!");
     }
 
-    public void updateBackPack(String item){
-        System.out.println(item);
+    public void updateBackPack(Artifact item){
+        System.out.println("Saving to backpack");
         this.backPack.add(item);
     }
 
@@ -76,7 +76,8 @@ public class Hero {
         this.backPack.remove(item);
     }
 
-    public void equipItem(String item){
+    public void equipItem(Artifact item){
+        System.out.println("saving to equipment");
         this.equipped.add(item);
     }
 
@@ -84,11 +85,11 @@ public class Hero {
         this.equipped.remove(item);
     }
 
-    public List<String> getBackPack() {
+    public List<Artifact> getBackPack() {
         return backPack;
     }
 
-    public List<String> getEquipped() {
+    public List<Artifact> getEquipped() {
         return equipped;
     }
 
@@ -114,48 +115,4 @@ public class Hero {
         }
     }
 
-}
-
-
-class Stats {
-
-    private long    HP;
-    private long    AtkDmg;
-    private int     Armor;
-    private int     xp;
-    private int     xpBar;
-    private int     Level;
-
-    Stats(long HP, long AtkDmg, int Armor, int xp, int Level) {
-        this.HP = HP;
-        this.AtkDmg = AtkDmg;
-        this.Armor = Armor;
-        this.Level = Level;
-        this.xpBar = Level * 1000 + (int)Math.pow(Level - 1, 2) * 450;
-        this.xp = xp;
-    }
-
-    public int getXpBar() {
-        return this.xpBar;
-    }
-
-    public long getHP() {
-        return HP;
-    }
-
-    public long getAtkDmg() {
-        return AtkDmg;
-    }
-
-    public int getArmor() {
-        return Armor;
-    }
-
-    public int getXp() {
-        return xp;
-    }
-
-    public int getLevel() {
-        return Level;
-    }
 }

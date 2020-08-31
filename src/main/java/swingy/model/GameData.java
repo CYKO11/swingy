@@ -10,10 +10,6 @@ public class GameData {
     public void loadHero(){}
 
     public void createHero(String name, String heroClass){
-        System.out.println("<<<<<<<<<Creating hero>>>>>>>");
-        System.out.println(name);
-        System.out.println(heroClass);
-        System.out.println("<<<<<<<<<Hero Created>>>>>>>>");
         hero = new Hero(name, heroClass);
     }
 }

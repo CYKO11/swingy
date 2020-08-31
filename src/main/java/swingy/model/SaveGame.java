@@ -8,36 +8,38 @@ import java.lang.reflect.Array;
 public class SaveGame {
 
     public void saveData(Hero ObjHero){
+
         try {
-//        File myObj = new File("SavedGame.txt");
             int i = 7;
             FileWriter myWriter = new FileWriter("SavedGame.txt");
-            String[] data = new String[56];
-
-            data[0] = String.valueOf(ObjHero.getStats().getArmor());
-            data[1] = String.valueOf(ObjHero.getStats().getAtkDmg());
-            data[2] = String.valueOf(ObjHero.getStats().getHP());
-            data[3] = String.valueOf(ObjHero.getStats().getLevel());
-            data[4] = String.valueOf(ObjHero.getStats().getXp());
-            data[5] = String.valueOf(ObjHero.getStats().getXpBar());
-            data[5] = ObjHero.getName();
-            data[6] = ObjHero.getHeroClass();
+            String[] data = new String[57];
+            System.out.println("###### saveData function ######");
+            data[0] = String.valueOf("Armour "+ObjHero.getStats().getArmor());
+            data[1] = String.valueOf("AtkDmg "+ObjHero.getStats().getAtkDmg());
+            data[2] = String.valueOf("HP "+ObjHero.getStats().getHP());
+            data[3] = String.valueOf("Lvl "+ObjHero.getStats().getLevel());
+            data[4] = String.valueOf("XP "+ObjHero.getStats().getXp());
+            data[5] = "Name "+ObjHero.getName();
+            data[6] = "heroClass "+ObjHero.getHeroClass();
 
             data[i++] = "Backpack";
             if (!ObjHero.getBackPack().isEmpty()){
-                for (String element : ObjHero.getBackPack()) {
-                    System.out.println(element);
-                    data[i++] = element;
+                for (Artifact element : ObjHero.getBackPack()) {
+                    System.out.println("Backpack item (savedata)");
+                    System.out.println(element.getName());
+                    data[i++] = element.getName();
                 }
             }
             data[i++] = "equipment";
             if (!ObjHero.getEquipped().isEmpty()){
-                for (String element : ObjHero.getEquipped()) {
-                    System.out.println(element);
-                    data[i++] = element;
+                for (Artifact element : ObjHero.getEquipped()) {
+                    System.out.println("equipment item (savedata)");
+                    System.out.println(element.getName());
+                    data[i++] = element.getName();
                 }
             }
 
+            /// Writer
             i = 0;
             System.out.println("checking here "+data[i]);
             while (data[i] != null){

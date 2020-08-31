@@ -2,12 +2,12 @@ package swingy.model;
 
 
 public class Artifact {
-    private static String type;
-    private static String name;
-    private static int damage;
-    private static int hp;
-    private static int armour;
-    private static int rarity;
+    private String type;
+    private String name;
+    private int damage;
+    private int hp;
+    private int armour;
+    private int rarity;
 
     public Artifact(String ItemName){
         String[] drop;
@@ -105,11 +105,12 @@ class Item {
     public String[] getItem(String name){
         int pos = 0;
         while (pos < items.length){
-            if (items[pos][0] == name){
+            if (items[pos][0].equals(name)){
                 return items[pos];
             }
             pos++;
         }
+        System.out.println("Item not found");
         return null;
     }
 
