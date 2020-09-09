@@ -13,7 +13,7 @@ public class SaveGame {
             int i = 7;
             FileWriter myWriter = new FileWriter("SavedGame.txt");
             String[] data = new String[57];
-            System.out.println("###### saveData function ######");
+            System.out.println("Saving game...");
             data[0] = String.valueOf("Armour "+ObjHero.getStats().getArmor());
             data[1] = String.valueOf("AtkDmg "+ObjHero.getStats().getAtkDmg());
             data[2] = String.valueOf("HP "+ObjHero.getStats().getHP());
@@ -25,25 +25,19 @@ public class SaveGame {
             data[i++] = "Backpack";
             if (!ObjHero.getBackPack().isEmpty()){
                 for (Artifact element : ObjHero.getBackPack()) {
-                    System.out.println("Backpack item (savedata)");
-                    System.out.println(element.getName());
                     data[i++] = element.getName();
                 }
             }
             data[i++] = "equipment";
             if (!ObjHero.getEquipped().isEmpty()){
                 for (Artifact element : ObjHero.getEquipped()) {
-                    System.out.println("equipment item (savedata)");
-                    System.out.println(element.getName());
                     data[i++] = element.getName();
                 }
             }
 
             /// Writer
             i = 0;
-            System.out.println("checking here "+data[i]);
             while (data[i] != null){
-                System.out.println(data[i]);
                 myWriter.write(data[i]+"\n");
                 i++;
             }

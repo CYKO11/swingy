@@ -3,16 +3,25 @@ package swingy.model;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Hero {
 
     private Stats               stats;
     private String              name;
     private String              heroClass;
+    private int                 currX;
+    private int                 currY;
     private List<Artifact>      backPack = new ArrayList<>();
+
+
     private List<Artifact>      equipped = new ArrayList<>();
 
     public Stats getStats() {
         return stats;
+    }
+
+    public void setStats(Stats stats) {
+        this.stats = stats;
     }
 
     public String getName() {
@@ -49,21 +58,19 @@ public class Hero {
         }
     }
 
-    public void initializeSave(int armor, int AtkDmg, int HP, int lvl, int xp, String name, String Class, String[] backpack, String[] equipment){
+    public void initializeSave(int armor, int AtkDmg, int HP, int lvl, int xp, String name, String Class, List<Artifact> backpack, List<Artifact> equipment){
         System.out.println("Loading last save...");
         this.stats = new Stats(HP, AtkDmg, armor, xp, lvl);
         this.name = name;
         this.heroClass = Class;
-        int i = 0;
-//        while (backpack[i] != null) {
-//            updateBackPack(backpack[i]);
-//            i++;
-//        }
-//        i = 0;
-//        while (equipment[i] != null){
-//            equipItem(equipment[i]);
-//            i++;
-//        }
+        for (int i = 0; i < backpack.size(); i++) {
+            updateBackPack(backpack.get(i));
+            i++;
+        }
+        for (int i = 0; i < equipment.size(); i++){
+            equipItem(equipment.get(i));
+            i++;
+        }
         System.out.println("hero loaded!");
     }
 
@@ -72,16 +79,18 @@ public class Hero {
         this.backPack.add(item);
     }
 
-    public void removeItem(String item){
+    public void removeItem(Artifact item){
         this.backPack.remove(item);
     }
 
     public void equipItem(Artifact item){
         System.out.println("saving to equipment");
+        removeItem(item);
         this.equipped.add(item);
     }
 
-    public void unequipItem(String item){
+    public void unequipItem(Artifact item){
+        updateBackPack(item);
         this.equipped.remove(item);
     }
 
@@ -94,11 +103,11 @@ public class Hero {
     }
 
 
-    public void updateConditions(long dmg, long healing, int xp) {
+    public void updateConditions(int xp) {
         System.out.println("xpbar: "+stats.getXpBar());
 
         this.stats = new Stats(
-                stats.getHP() - (dmg - healing),
+                stats.getHP(),
                 stats.getAtkDmg(),
                 stats.getArmor(),
                 stats.getXp() + xp,
@@ -113,6 +122,22 @@ public class Hero {
                     stats.getXp() - stats.getXpBar(),
                     stats.getLevel() + 1);
         }
+    }
+
+    public void setCurrX(int currX) {
+        this.currX = currX;
+    }
+
+    public void setCurrY(int currY) {
+        this.currY = currY;
+    }
+
+    public int getCurrX() {
+        return currX;
+    }
+
+    public int getCurrY() {
+        return currY;
     }
 
 }

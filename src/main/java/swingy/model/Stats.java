@@ -1,6 +1,7 @@
 package swingy.model;
 
 public class Stats {
+
     private long    HP;
     private long    AtkDmg;
     private int     Armor;
@@ -8,7 +9,7 @@ public class Stats {
     private int     xpBar;
     private int     Level;
 
-    Stats(long HP, long AtkDmg, int Armor, int xp, int Level) {
+    public Stats(long HP, long AtkDmg, int Armor, int xp, int Level) {
         this.HP = HP;
         this.AtkDmg = AtkDmg;
         this.Armor = Armor;

@@ -14,8 +14,17 @@ public class Renderer {
         String in = reader.readLine();
         int pos = 0;
         while (pos < options.length){
-            if (in.equals(options[pos]) || inputCheckToggle == 0)
+            if (inputCheckToggle == 0) {
+                if (in.length() < 2){
+                    System.out.println("\n INPUT TOO SHORT");
+                    return terminalRender(out, options, inputCheckToggle);
+                }
                 return in;
+            }
+            else if (in.equals(options[pos])) {
+                final String s = in.toLowerCase();
+                return s;
+            }
             pos++;
         }
         System.out.println("\n INVALID INPUT");
