@@ -38,4 +38,40 @@ public class GameData {
         hero = new Hero(name, heroClass);
     }
 
+    public boolean isInBackpack(String item){
+        int pos = 0;
+        while (pos < tmpHero.getBackPack().size()){
+            if (item.equals(tmpHero.getBackPack().get(pos).getName()))
+                return true;
+            pos++;
+        }
+        return false;
+    }
+    public boolean isEquiped(String item){
+        int pos = 0;
+        while (pos < tmpHero.getEquipped().size()){
+            if (item.equals(tmpHero.getEquipped().get(pos).getName()))
+                return true;
+            pos++;
+        }
+        return false;
+    }
+
+    public void equipItem(String item){
+        Artifact itemObject = null;
+        int pos = 0;
+        while (pos < tmpHero.getBackPack().size()){
+            if (item.equals(tmpHero.getBackPack().get(pos).getName())){
+                itemObject = tmpHero.getBackPack().get(pos);
+            }
+            pos++;
+        }
+        pos = 0;
+        while (pos < tmpHero.getEquipped().size()){
+            if (tmpHero.getEquipped().get(pos).getClass().equals(itemObject.getClass()))
+                tmpHero.unequipItem(tmpHero.getEquipped().get(pos));
+            pos++;
+        }
+        tmpHero.equipItem(itemObject);
+    }
 }

@@ -21,7 +21,7 @@ public class Renderer {
                 }
                 return in;
             }
-            else if (in.equals(options[pos])) {
+            else if (in.toLowerCase().equals(options[pos].toLowerCase())) {
                 final String s = in.toLowerCase();
                 return s;
             }

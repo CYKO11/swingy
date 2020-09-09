@@ -5,6 +5,7 @@ import swingy.model.*;
 import swingy.view.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Engine {
@@ -203,38 +204,39 @@ public class Engine {
         }
         gameRenderer.terminalOut("\n <<< Equiped >>> ");
         pos = 0;
-        while (pos < 3){
-            if (pos < gameData.getTmpHero().getEquipped().size())
-                gameRenderer.terminalOut("\titem: " + formatItem(gameData.getTmpHero().getEquipped().get(pos)));
-            pos++;
+        if (gameData.getTmpHero().getEquipped().size() > 0){
+            while (pos < 3){
+                if (pos < gameData.getTmpHero().getEquipped().size())
+                    gameRenderer.terminalOut("\titem: " + formatItem(gameData.getTmpHero().getEquipped().get(pos)));
+                pos++;
+            }
+        } else {
+            gameRenderer.terminalOut("\t No items equipped");
         }
         String in = gameRenderer.terminalRender(
-                "Do you wish to Equip (e) or Unequip (u) and item \n to return enter (r)",
-                new String[]{"e","u","r"},
+                "\n(e): Equip item\n(u): Unequip item \n(d): Drop Item\n(r): Return to game",
+                new String[]{"e","u","d","r"},
                 1
         );
-        if (in.equals("e")){
-            in = gameRenderer.terminalRender(
-                    "Name the item you wish to equip (it will overide items equiped of the same class)",
-                    artifactList(gameData.getTmpHero().getBackPack()),
-                    1
-            );
-            System.out.println(in);
-        }
-        else if (in.equals("u")){
-            if (gameData.getTmpHero().getEquipped().size() == 0)
-                gameRenderer.terminalOut("You have no equiped items");
-            else {
-                in = gameRenderer.terminalRender(
-                        "Name the item you wish to unequip",
-                        artifactList(gameData.getTmpHero().getEquipped()),
+        if (!in.equals("r")){
+            String item = gameRenderer.terminalRender(
+                        "Name the item you wish to " + in + " (x) to cancel",
+                        artifactList(gameData.getTmpHero().getBackPack(), gameData.getTmpHero().getEquipped()),
                         1
-                );
-                System.out.println(in);
+            );
+            if (item.equals("x")){
+                inventory();
+            } else if (item.equals("equip")){
+                if (gameData.isEquiped(item)){
+                    gameRenderer.terminalOut("Item is already equipped");
+                    inventory();
+                } else {
+                    gameData.equipItem(item);
+                }
             }
-
+        } else {
+            move();
         }
-        gameRenderer.terminalOutAwait("w");
     }
 
     private String formatItem(Artifact item){
@@ -242,15 +244,20 @@ public class Engine {
         return newFormat;
     }
 
-    private String[] artifactList(List<Artifact> artifactList){
-        List<String> newList = null;
+    private String[] artifactList(List<Artifact> artifactList, List<Artifact> equipped){
+        List<String> newList = new ArrayList<>();
         int pos = 0;
         while (pos < artifactList.size()){
             newList.add(artifactList.get(pos).getName().toLowerCase());
             pos++;
         }
-        newList.add("r");
-        return artifactList.toArray(new String[artifactList.size()]);
+        pos = 0;
+        while (pos < equipped.size()){
+            newList.add(artifactList.get(pos).getName().toLowerCase());
+            pos++;
+        }
+        newList.add("x");
+        return newList.toArray(new String[artifactList.size()]);
     }
 
     void nextLevel() throws IOException {
