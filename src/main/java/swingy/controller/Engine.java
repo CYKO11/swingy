@@ -48,7 +48,7 @@ public class Engine {
         preGame();
     }
 
-    void load() throws IOException {
+    public void load() throws IOException {
         Hero load = gameData.checkLoad();
         String in;
         if (load == null){

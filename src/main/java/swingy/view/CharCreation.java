@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class GUI extends JFrame implements ActionListener {
+public class CharCreation extends JFrame implements ActionListener {
 
     private JTextField  textField;
     private JButton     Normie, Weeb, Otaku, Methhead, Submit, Start;
@@ -20,10 +20,10 @@ public class GUI extends JFrame implements ActionListener {
     private JLabel      blank;
     private JLabel      nothing;
 
-    public GUI(){
+    public CharCreation(){
 
         this.setTitle("World of Anime");
-        this.setSize(350, 300);
+        this.setSize(450, 400);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
