@@ -30,4 +30,11 @@ public class Renderer {
         System.out.println("\n INVALID INPUT");
         return terminalRender(out, options, inputCheckToggle);
     }
+    public void terminalOut(String in){
+        System.out.println(in);
+    }
+    public void terminalOutAwait(String in) throws IOException {
+        System.out.println(in);
+        System.in.read();
+    }
 }

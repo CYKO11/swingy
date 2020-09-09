@@ -5,6 +5,7 @@ import swingy.model.*;
 import swingy.view.*;
 
 import java.io.IOException;
+import java.util.List;
 
 public class Engine {
     private GameData gameData = new GameData();
@@ -13,7 +14,7 @@ public class Engine {
     private WorldGeneration world = null;
 
     public void init() throws IOException {
-        System.out.println("Welcome to WOW");
+        gameRenderer.terminalOut("Welcome to WOW");
         menu();
     }
 
@@ -50,40 +51,30 @@ public class Engine {
 
     void load() throws IOException {
         Hero load = gameData.checkLoad();
-        String in;
         if (load == null){
-            System.out.println("No previously saved game");
+            gameRenderer.terminalOut("No previously saved game");
             menu();
         } else {
-            in = gameRenderer.terminalRender(
-                "Do you wish to load your previous game(y,n)",
-                new String[]{"y","n"},
-                1);
-            if (in.equals("n")){
-                menu();
-            } else if (in.equals("y")){
-                gameData.loadHero();
-                preGame();
-            }
+            gameData.loadHero();
+            preGame();
         }
-
     }
+
     void save() throws IOException {
         String in = gameRenderer.terminalRender(
-                "Do you wish save your current game(y,n)",
+                "Do you wish save your current progress(y,n)",
                 new String[]{"y","n"},
                 1
         );
         if (in.equals("y")){
             gameData.saveHero();
-        } else if (in.equals("n")) {
-            menu();
         }
     }
+
     void preGame() throws IOException {
-        System.out.print("Current Hero " + gameData.getHero().getName() + "\n");
-        System.out.print("Class " + gameData.getHero().getClass() + "\n");
-        System.out.print("XP " + gameData.getHero().getStats().getXp() + "\n");
+        gameRenderer.terminalOut("Hero: \t" + gameData.getHero().getName());
+        gameRenderer.terminalOut("Class: \t" + gameData.getHero().getHeroClass());
+        gameRenderer.terminalOut("XP: \t" + gameData.getHero().getStats().getXp());
         String in = gameRenderer.terminalRender(
                 "Do you wish to proceed with this hero?(y,n)",
                 new String[]{"y","n"},
@@ -95,6 +86,7 @@ public class Engine {
             menu();
         }
     }
+
     void inGameMenu() throws IOException {
           String in = gameRenderer.terminalRender(
                   "Menu\nsave (save)\nexit game (exit)\nReturn (r)",
@@ -123,7 +115,6 @@ public class Engine {
             gameData.mirrorHero();
             world = new WorldGeneration();
             world.generateWorld(gameData.getTmpHero());
-            System.out.println("New world Generated");
         }
         move();
     }
@@ -131,26 +122,32 @@ public class Engine {
         world.printWorld();
         String in = gameRenderer.terminalRender(
                 "Move (n,s,e,w)",
-                new String[]{"n","s","e","w","menu"},
+                new String[]{"n","s","e","w","menu","i"},
                 1);
-        if (in.equals("menu")){
+        if (in.equals("menu")) {
             inGameMenu();
+        } else if (in.equals("i")){
+            inventory();
+            move();
         } else {
-            System.out.println("not menu");
             if (world.ghostMove(in) != null){
                 // interaction
-                System.out.println("interactions");
-                if (combat(world.ghostMove(in))){
-                    drop();
-                    world.defeatEnemy(world.ghostMove(in));
-                    if (world.move(in))
-                        nextLevel();
-                    move();
-                } else {
-                    die();
+                int combatResult = combat(world.ghostMove(in));
+                switch (combatResult){
+                    case 0 : die();
+                            break;
+
+                    case 1 : drop();
+                            world.defeatEnemy(world.ghostMove(in));
+                            if (world.move(in))
+                                nextLevel();
+                            else
+                                move();
+                            break;
+                    case 2 : move();
+                            break;
                 }
             } else {
-                System.out.println("No enemies encountered");
                 if (world.move(in))
                     nextLevel();
                 move();
@@ -158,36 +155,34 @@ public class Engine {
         }
     }
 
-    boolean combat(Enemy enemy) throws IOException {
+    int combat(Enemy enemy) throws IOException {
         String in = gameRenderer.terminalRender(
-                "You have encountered an enemy\n Run away (r) or stay and fight (f)",
-                new String[]{"r","f"},
+                " << You have encountered an enemy >>\n\t(c): Cower and Run\n\t(f): Stand and Fight",
+                new String[]{"c","f"},
                 1
         );
-        if (in.equals("r")){
-            if (interactionEngine.runAway()){
-                System.out.println("You have escaped");
-                return true;
-            } else {
-                System.out.println("You will not run from this fight");
-                return fight(enemy);
-            }
-        } else if (in.equals("f")){
-            return fight(enemy);
+        switch (in){
+            case "c" : if (interactionEngine.runAway()){
+                            gameRenderer.terminalOutAwait("\n <<< You live another day >>> \n  > press Enter to continue");
+                            return 2;
+                        } else {
+                            gameRenderer.terminalOutAwait("\n <<< Do or die >>> \n  > press Enter to proceed");
+                            return fight(enemy);
+                        }
+            case "f": return fight(enemy);
         }
-        return true;
+        return 1;
     }
 
-    boolean fight(Enemy enemy) throws IOException {
+    int fight(Enemy enemy) throws IOException {
         if (interactionEngine.combat(gameData.tmpHero, enemy) == null)
-            return false;
-        return true;
+            return 0;
+        return 1;
     }
 
     void drop() throws IOException {
-        System.out.println("You have found");
         Artifact drop = new Artifact("");
-        System.out.println(drop.getName());
+        System.out.println("You have found: " + drop.getName());
         String in = gameRenderer.terminalRender(
                 "Do you wish to add this item to your inventory",
                 new String[]{"y","n"},
@@ -198,15 +193,76 @@ public class Engine {
         }
     }
 
+    void inventory() throws IOException {
+        gameRenderer.terminalOut(" <<< Inventory >>> ");
+        int pos = 0;
+        while (pos < 20) {
+            if (pos < gameData.getTmpHero().getBackPack().size())
+                gameRenderer.terminalOut("\titem: " + formatItem(gameData.getTmpHero().getBackPack().get(pos)));
+            pos++;
+        }
+        gameRenderer.terminalOut("\n <<< Equiped >>> ");
+        pos = 0;
+        while (pos < 3){
+            if (pos < gameData.getTmpHero().getEquipped().size())
+                gameRenderer.terminalOut("\titem: " + formatItem(gameData.getTmpHero().getEquipped().get(pos)));
+            pos++;
+        }
+        String in = gameRenderer.terminalRender(
+                "Do you wish to Equip (e) or Unequip (u) and item \n to return enter (r)",
+                new String[]{"e","u","r"},
+                1
+        );
+        if (in.equals("e")){
+            in = gameRenderer.terminalRender(
+                    "Name the item you wish to equip (it will overide items equiped of the same class)",
+                    artifactList(gameData.getTmpHero().getBackPack()),
+                    1
+            );
+            System.out.println(in);
+        }
+        else if (in.equals("u")){
+            if (gameData.getTmpHero().getEquipped().size() == 0)
+                gameRenderer.terminalOut("You have no equiped items");
+            else {
+                in = gameRenderer.terminalRender(
+                        "Name the item you wish to unequip",
+                        artifactList(gameData.getTmpHero().getEquipped()),
+                        1
+                );
+                System.out.println(in);
+            }
+
+        }
+        gameRenderer.terminalOutAwait("w");
+    }
+
+    private String formatItem(Artifact item){
+        String newFormat = item.getName() + " >>> HP:" + item.getHp() + " ATK:" + item.getDamage() + " ARM:" + item.getArmour();
+        return newFormat;
+    }
+
+    private String[] artifactList(List<Artifact> artifactList){
+        List<String> newList = null;
+        int pos = 0;
+        while (pos < artifactList.size()){
+            newList.add(artifactList.get(pos).getName().toLowerCase());
+            pos++;
+        }
+        newList.add("r");
+        return artifactList.toArray(new String[artifactList.size()]);
+    }
+
     void nextLevel() throws IOException {
         world.generateWorld(gameData.getTmpHero());
+        save();
         move();
     }
 
     void die() throws IOException {
         gameData.mirrorHero();
         world = null;
-        System.out.println("you died");
+        System.out.println(" <<< you died >>> ");
         menu();
     }
 

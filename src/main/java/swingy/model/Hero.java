@@ -59,7 +59,7 @@ public class Hero {
     }
 
     public void initializeSave(int armor, int AtkDmg, int HP, int lvl, int xp, String name, String Class, List<Artifact> backpack, List<Artifact> equipment){
-        System.out.println("Loading last save...");
+//        System.out.println("Loading last save...");
         this.stats = new Stats(HP, AtkDmg, armor, xp, lvl);
         this.name = name;
         this.heroClass = Class;
@@ -71,11 +71,11 @@ public class Hero {
             equipItem(equipment.get(i));
             i++;
         }
-        System.out.println("hero loaded!");
+//        System.out.println("hero loaded!");
     }
 
     public void updateBackPack(Artifact item){
-        System.out.println("Saving to backpack");
+//        System.out.println("Saving to backpack");
         this.backPack.add(item);
     }
 
@@ -84,7 +84,7 @@ public class Hero {
     }
 
     public void equipItem(Artifact item){
-        System.out.println("saving to equipment");
+//        System.out.println("saving to equipment");
         removeItem(item);
         this.equipped.add(item);
     }
