@@ -1,1 +1,2 @@
-targetK
+target/
+*.class
