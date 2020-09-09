@@ -70,7 +70,7 @@ public class WorldGeneration {
     }
 
     public boolean move(String direction){
-        System.out.println("moving " + direction);
+//        System.out.println("moving " + direction);
         if (direction.equals("n")){
             heroY++;
         } else if (direction.equals("s")){
@@ -103,13 +103,18 @@ public class WorldGeneration {
 //        System.out.println("coords : " + boundsX + " " + boundsY);
         int posX = 0;
         int posY = boundsY;
+//        System.out.println("bounds : " + boundsX + " " + boundsY);
+//        System.out.println("Hero coords : " + heroX + " " + heroY);
+//        for (Enemy element : enemies) {
+//            System.out.println("Enemy coords >> x :" + element.getX() + " y :" + element.getY());
+//        }
         while (posY >= 0){
             posX = 0;
             while (posX <= boundsX){
                 if (coordsTaken(new int[]{posX,posY}))
                     System.out.print("X  ");
                 else if (posX == heroX && posY == heroY)
-                    System.out.print("C  ");
+                    System.out.print("H  ");
                 else
                     System.out.print("   ");
                 posX++;
@@ -117,9 +122,5 @@ public class WorldGeneration {
             posY--;
             System.out.print(" | \n");
         }
-//        System.out.println("coords : " + boundsX + " " + boundsY);
-//        for (Enemy element : enemies) {
-//            System.out.println("Enemy coords >> x :" + element.getX() + " y :" + element.getY());
-//        }
     }
 }
