@@ -156,9 +156,9 @@ public class WorldGeneration {
             x = 0;
             while (x <= boundsX){
                 switch (getOccupants(x, y, exportWorld())){
-                    case 0  : map = map + "   "; break;
-                    case 1  : map = map + "X  "; break;
-                    case 2  : map = map + "H  "; break;
+                    case 0  : map = map + "[ - ]"; break;
+                    case 1  : map = map + "[X]"; break;
+                    case 2  : map = map + "[H]"; break;
                 }
                 x++;
             }
