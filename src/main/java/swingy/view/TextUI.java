@@ -82,7 +82,11 @@ public class TextUI {
 
         } else {
             CombatReport report = gameEngine.preMove(in);
-            if (report.combat){
+            System.out.println(report.proceed);
+            if (report.proceed) {
+                gameEngine.genWorld(gameEngine.getGameData().tmpHero);
+                game();
+            } else if (report.combat){
                 in = terminal.render(
                         " << You have encountered an enemy >>\n\t(c): Cower and Run\n\t(f): Stand and Fight",
                         new String[]{"c","f"},
