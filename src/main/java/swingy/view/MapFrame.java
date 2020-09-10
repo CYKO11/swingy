@@ -74,53 +74,53 @@ public class MapFrame extends JFrame implements ActionListener {
 
         if (ae.equals(this.North)){
             System.out.println("Move action North");
-            this.combatreport = game.preMove("North");
+            this.combatreport = game.preMove("n");
             if (combatreport.combat){
                 this.combat = true;
                 this.Map.setText("You have encountered and enemy!\n Do you wish to Fight like a warrior or Flee like a bitch?");
             }
             else {
                 System.out.println("Moving North");
-                game.move("North", combatreport);
+                game.move("n", combatreport);
             }
             this.Map.setText(game.getWorld().exportMapHtml());
         }
         else if (ae.equals(this.East)){
             System.out.println("Move action East");
-            this.combatreport = game.preMove("East");
+            this.combatreport = game.preMove("e");
             if (combatreport.combat){
                 this.combat = true;
                 this.Map.setText("You have encountered and enemy!\n Do you wish to Fight like a warrior or Flee like a bitch?");
             }
             else {
                 System.out.println("Moving East");
-                game.move("East", combatreport);
+                game.move("e", combatreport);
             }
             this.Map.setText(game.getWorld().exportMapHtml());
         }
         else if (ae.equals(this.South)){
             System.out.println("Move action South");
-            this.combatreport = game.preMove("South");
+            this.combatreport = game.preMove("s");
             if (combatreport.combat){
                 this.combat = true;
                 this.Map.setText("You have encountered and enemy!\n Do you wish to Fight like a warrior or Flee like a bitch?");
             }
             else {
                 System.out.println("Moving South");
-                game.move("South", combatreport);
+                game.move("s", combatreport);
             }
             this.Map.setText(game.getWorld().exportMapHtml());
         }
         else if (ae.equals(this.West)){
             System.out.println("Move action West");
-            this.combatreport = game.preMove("West");
+            this.combatreport = game.preMove("w");
             if (combatreport.combat){
                 this.combat = true;
                 this.Map.setText("You have encountered and enemy!\n Do you wish to Fight like a warrior or Flee like a bitch?");
             }
             else {
                 System.out.println("Moving West");
-                game.move("West", combatreport);
+                game.move("w", combatreport);
             }
             this.Map.setText(game.getWorld().exportMapHtml());
         }
