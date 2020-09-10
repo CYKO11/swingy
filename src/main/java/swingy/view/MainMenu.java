@@ -1,6 +1,5 @@
 package swingy.view;
 
-import swingy.controller.Engine;
 import swingy.model.*;
 import swingy.view.*;
 
@@ -90,11 +89,7 @@ public class MainMenu extends JFrame implements ActionListener{
         else if (ae.equals(this.loadGame)){
             System.out.println("loading Game");
             gamedata = new GameData();
-            try {
-                gamedata.loadHero();
-            } catch (FileNotFoundException fileNotFoundException) {
-                fileNotFoundException.printStackTrace();
-            }
+            gamedata.loadHero();
         }
     }
 

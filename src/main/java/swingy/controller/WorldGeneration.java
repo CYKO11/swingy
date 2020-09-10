@@ -146,4 +146,33 @@ public class WorldGeneration {
         return mapData;
     }
 
+    public String exportMapString(){
+        String map = "";
+        int y = boundsY;
+        int x = 0;
+        while (y >= 0){
+            x = 0;
+            while (x <= boundsX){
+                switch (getOccupants(x, y, exportWorld())){
+                    case 0  : map = map + "   "; break;
+                    case 1  : map = map + "X  "; break;
+                    case 2  : map = map + "H  "; break;
+                }
+                x++;
+            }
+            map = map + "|\n";
+            y--;
+        }
+        return map;
+    }
+
+    private int getOccupants(int x, int y, List<MapData> mapData){
+        for (MapData point : mapData){
+            if (point.getCoords()[0] == x && point.getCoords()[1] == y){
+                return point.getOccupant();
+            }
+        }
+        return 0;
+    }
+
 }
