@@ -1,10 +1,7 @@
 package swingy;
 
-import org.graalvm.compiler.lir.RedundantMoveElimination;
-import swingy.controller.Engine;
-import swingy.model.Artifact;
-import swingy.model.GameData;
-import swingy.view.Renderer;
+import swingy.controller.ActionEngine;
+import swingy.view.TextUI;
 
 import java.io.IOException;
 
@@ -13,7 +10,13 @@ import java.io.IOException;
  *
 */
 public class App {
-    public static void main( String[] args ) throws IOException {
-        new Engine().init();
+    public static void main( String[] args ) {
+        ActionEngine gameEngine =  new ActionEngine();
+        TextUI textGame = new TextUI(gameEngine);
+        try {
+            textGame.init();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
