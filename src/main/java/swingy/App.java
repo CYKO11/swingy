@@ -13,7 +13,7 @@ import java.io.IOException;
 public class App {
     public static void main( String[] args ) {
         ActionEngine gameEngine =  new ActionEngine();
-//        TextUI textGame = new TextUI(gameEngine);
+        TextUI textGame = new TextUI(gameEngine);
 //        try {
 //            textGame.init();
 //        } catch (IOException e) {

@@ -110,6 +110,8 @@ public class WorldGeneration {
     }
 
     public void defeatEnemy(Enemy enemy){
+        heroY = enemy.getY();
+        heroX = enemy.getX();
         enemies.remove(enemy);
 //        for (Enemy element : this.enemies){
 //            if (element.getY() == enemy.getY() && element.getX() == enemy.getX()){
@@ -146,8 +148,8 @@ public class WorldGeneration {
         return mapData;
     }
 
-    public String exportMapString(){
-        String map = "";
+    public String exportMapHtml(){
+        String map = "<html>";
         int y = boundsY;
         int x = 0;
         while (y >= 0){
@@ -160,10 +162,10 @@ public class WorldGeneration {
                 }
                 x++;
             }
-            map = map + "|\n";
+            map = map + "|<br/>";
             y--;
         }
-        return map;
+        return map + "<html>";
     }
 
     private int getOccupants(int x, int y, List<MapData> mapData){
@@ -174,5 +176,4 @@ public class WorldGeneration {
         }
         return 0;
     }
-
 }
