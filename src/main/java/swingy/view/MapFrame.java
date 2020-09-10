@@ -42,9 +42,9 @@ public class MapFrame extends JFrame implements ActionListener {
         Run = new JButton("Action: Run");
 
         /// Set Map
-        Map = new JLabel("No map generated", SwingConstants.CENTER);
-        if (gameEngine.getWorld().exportMapString() != null)
-            Map.setText(gameEngine.getWorld().exportMapString());
+        Map = new JLabel("No map generated");
+        if (gameEngine.getWorld().exportMapHtml() != null)
+            Map.setText(gameEngine.getWorld().exportMapHtml());
 
         //Graph layout
         MainBtns.add(North);
@@ -83,7 +83,7 @@ public class MapFrame extends JFrame implements ActionListener {
                 System.out.println("Moving North");
                 game.move("North", combatreport);
             }
-            this.Map.setText(game.getWorld().exportMapString());
+            this.Map.setText(game.getWorld().exportMapHtml());
         }
         else if (ae.equals(this.East)){
             System.out.println("Move action East");
@@ -96,7 +96,7 @@ public class MapFrame extends JFrame implements ActionListener {
                 System.out.println("Moving East");
                 game.move("East", combatreport);
             }
-            this.Map.setText(game.getWorld().exportMapString());
+            this.Map.setText(game.getWorld().exportMapHtml());
         }
         else if (ae.equals(this.South)){
             System.out.println("Move action South");
@@ -109,7 +109,7 @@ public class MapFrame extends JFrame implements ActionListener {
                 System.out.println("Moving South");
                 game.move("South", combatreport);
             }
-            this.Map.setText(game.getWorld().exportMapString());
+            this.Map.setText(game.getWorld().exportMapHtml());
         }
         else if (ae.equals(this.West)){
             System.out.println("Move action West");
@@ -122,7 +122,7 @@ public class MapFrame extends JFrame implements ActionListener {
                 System.out.println("Moving West");
                 game.move("West", combatreport);
             }
-            this.Map.setText(game.getWorld().exportMapString());
+            this.Map.setText(game.getWorld().exportMapHtml());
         }
         else if (ae.equals(this.Fight)){
             if (combat){
@@ -146,7 +146,7 @@ public class MapFrame extends JFrame implements ActionListener {
                     } catch (InterruptedException interruptedException) {
                         interruptedException.printStackTrace();
                     }
-                    this.Map.setText(game.getWorld().exportMapString());
+                    this.Map.setText(game.getWorld().exportMapHtml());
                 }
             }
             else {
@@ -156,7 +156,7 @@ public class MapFrame extends JFrame implements ActionListener {
                 } catch (InterruptedException interruptedException) {
                     interruptedException.printStackTrace();
                 }
-                this.Map.setText(game.getWorld().exportMapString());
+                this.Map.setText(game.getWorld().exportMapHtml());
             }
         }
         else if (ae.equals(this.Run)){
@@ -168,7 +168,7 @@ public class MapFrame extends JFrame implements ActionListener {
                     } catch (InterruptedException interruptedException) {
                         interruptedException.printStackTrace();
                     }
-                    this.Map.setText(game.getWorld().exportMapString());
+                    this.Map.setText(game.getWorld().exportMapHtml());
                 }
                 else {
                     this.Map.setText("Fight or die there is no escape");
@@ -198,7 +198,7 @@ public class MapFrame extends JFrame implements ActionListener {
                         } catch (InterruptedException interruptedException) {
                             interruptedException.printStackTrace();
                         }
-                        this.Map.setText(game.getWorld().exportMapString());
+                        this.Map.setText(game.getWorld().exportMapHtml());
                     }
                 }
             }
@@ -209,7 +209,7 @@ public class MapFrame extends JFrame implements ActionListener {
                 } catch (InterruptedException interruptedException) {
                     interruptedException.printStackTrace();
                 }
-                this.Map.setText(game.getWorld().exportMapString());
+                this.Map.setText(game.getWorld().exportMapHtml());
             }
         }
     }
