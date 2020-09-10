@@ -67,10 +67,8 @@ public class LoadGame {
             return heroObj;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-//            System.out.println("No Save file found!");
             return (null);
         } catch (NumberFormatException e) {
-//            System.out.println("Save file corrupted. This was your doing wasn't it");
             e.printStackTrace();
             return (null);
         }

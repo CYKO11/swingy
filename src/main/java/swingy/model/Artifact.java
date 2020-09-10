@@ -10,12 +10,17 @@ public class Artifact {
     private int rarity;
 
     public Artifact(String ItemName){
-        String[] drop;
-        if (ItemName == ""){
-            drop = Item.item().getDrop();
-        } else {
-            drop = Item.item().getItem(ItemName);
-        }
+        String[] drop = Item.item().getItem(ItemName);;
+        name = drop[0];
+        damage = Integer.parseInt(drop[1]);
+        armour = Integer.parseInt(drop[2]);
+        hp = Integer.parseInt(drop[3]);
+        rarity = Integer.parseInt(drop[4]);
+        type = drop[5];
+    }
+
+    public Artifact(){
+        String[] drop = Item.item().getDrop();
         name = drop[0];
         damage = Integer.parseInt(drop[1]);
         armour = Integer.parseInt(drop[2]);

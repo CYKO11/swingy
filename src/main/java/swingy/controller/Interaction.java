@@ -33,13 +33,13 @@ public class Interaction {
                     tmphero.getStats().getLevel()
             );
             tmphero.setStats(stats);
-            System.out.println("You won the battle");
+//            System.out.println("You won the battle");
             return (tmphero);
         }
         //Enemy Wins
         else {
-            System.out.println("The Immense strength of the enemy tears you limb from limb in a bloody massacre!");
-            System.out.println("YOU DIED...");
+//            System.out.println("The Immense strength of the enemy tears you limb from limb in a bloody massacre!");
+//            System.out.println("YOU DIED...");
             return (null);
         }
     }

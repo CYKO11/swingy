@@ -2,15 +2,17 @@ package swingy.controller;
 
 import swingy.model.Enemy;
 import swingy.model.Hero;
+import swingy.model.MapData;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class WorldGeneration {
-    private int boundsX = 0;
-    private int boundsY = 0;
-    private int heroX = 0;
-    private int heroY = 0;
+    public int boundsX = 0;
+    public int boundsY = 0;
+    int heroX = 0;
+    int heroY = 0;
     private Hero hero = null;
     private List<Enemy> enemies = new ArrayList<>();
 
@@ -54,7 +56,7 @@ public class WorldGeneration {
         return false;
     }
 
-    public Enemy ghostMove(String direction){
+    public boolean ghostMove(String direction){
         int ghostPosX = heroX;
         int ghostPosY = heroY;
         if (direction.equals("n")){
@@ -66,11 +68,13 @@ public class WorldGeneration {
         } else if (direction.equals("w")){
             ghostPosX--;
         }
-        return checkPos(ghostPosX, ghostPosY);
+        if ((ghostPosX > boundsX || ghostPosX < 0) || (ghostPosY > boundsY || ghostPosY < 0)){
+            return true;
+        }
+        return false;
     }
 
     public boolean move(String direction){
-//        System.out.println("moving " + direction);
         if (direction.equals("n")){
             heroY++;
         } else if (direction.equals("s")){
@@ -86,41 +90,89 @@ public class WorldGeneration {
         return false;
     }
 
-    private Enemy checkPos(int x, int y){
-        for (Enemy element : enemies) {
-            if (element.getX() == x && element.getY() == y)
-                return element;
+    public Enemy getEnemy(String direction){
+        int ghostPosX = heroX;
+        int ghostPosY = heroY;
+        if (direction.equals("n")){
+            ghostPosY++;
+        } else if (direction.equals("s")){
+            ghostPosY--;
+        } else if (direction.equals("e")){
+            ghostPosX++;
+        } else if (direction.equals("w")){
+            ghostPosX--;
+        }
+        for (Enemy enemy : enemies){
+            if (enemy.getX() == ghostPosX && enemy.getY() == ghostPosY)
+                return enemy;
         }
         return null;
     }
 
     public void defeatEnemy(Enemy enemy){
         enemies.remove(enemy);
-    }
-
-
-    public void printWorld(){
-//        System.out.println("coords : " + boundsX + " " + boundsY);
-        int posX = 0;
-        int posY = boundsY;
-//        System.out.println("bounds : " + boundsX + " " + boundsY);
-//        System.out.println("Hero coords : " + heroX + " " + heroY);
-//        for (Enemy element : enemies) {
-//            System.out.println("Enemy coords >> x :" + element.getX() + " y :" + element.getY());
+//        for (Enemy element : this.enemies){
+//            if (element.getY() == enemy.getY() && element.getX() == enemy.getX()){
+//                enemies.remove(element);
+//                return;
+//            }
 //        }
-        while (posY >= 0){
-            posX = 0;
-            while (posX <= boundsX){
-                if (coordsTaken(new int[]{posX,posY}))
-                    System.out.print("X  ");
-                else if (posX == heroX && posY == heroY)
-                    System.out.print("H  ");
-                else
-                    System.out.print("   ");
-                posX++;
-            }
-            posY--;
-            System.out.print(" | \n");
-        }
     }
+
+    public List<MapData> exportWorld(){
+        int pos = 0;
+        List<MapData> mapData= new ArrayList<>();
+        while (pos < enemies.size()){
+            mapData.add(
+                    new MapData(
+                            enemies.get(pos).getX(),
+                            enemies.get(pos).getY(),
+                            1,
+                            enemies.get(pos),
+                            null
+                    )
+            );
+            pos++;
+        }
+        mapData.add(
+                new MapData(
+                        heroX,
+                        heroY,
+                        2,
+                        null,
+                        hero
+                )
+        );
+        return mapData;
+    }
+
+    public String exportMapString(){
+        String map = "";
+        int y = boundsY;
+        int x = 0;
+        while (y >= 0){
+            x = 0;
+            while (x <= boundsX){
+                switch (getOccupants(x, y, exportWorld())){
+                    case 0  : map = map + "   "; break;
+                    case 1  : map = map + "X  "; break;
+                    case 2  : map = map + "H  "; break;
+                }
+                x++;
+            }
+            map = map + "|\n";
+            y--;
+        }
+        return map;
+    }
+
+    private int getOccupants(int x, int y, List<MapData> mapData){
+        for (MapData point : mapData){
+            if (point.getCoords()[0] == x && point.getCoords()[1] == y){
+                return point.getOccupant();
+            }
+        }
+        return 0;
+    }
+
 }

@@ -1,5 +1,7 @@
 package swingy.model;
 
+import sun.security.krb5.internal.crypto.Aes128;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +60,7 @@ public class Hero {
         }
     }
 
-    public void initializeSave(int armor, int AtkDmg, int HP, int lvl, int xp, String name, String Class, List<Artifact> backpack, List<Artifact> equipment){
+    public void initializeSave(int armor, long AtkDmg, long HP, int lvl, int xp, String name, String Class, List<Artifact> backpack, List<Artifact> equipment){
 //        System.out.println("Loading last save...");
         this.stats = new Stats(HP, AtkDmg, armor, xp, lvl);
         this.name = name;
@@ -74,6 +76,22 @@ public class Hero {
 //        System.out.println("hero loaded!");
     }
 
+    public Hero duplicateHero(){
+        Hero heroObj = new Hero(name , heroClass);
+        heroObj.initializeSave(
+                stats.getArmor(),
+                stats.getAtkDmg(),
+                stats.getHP(),
+                stats.getLevel(),
+                stats.getXp(),
+                name,
+                heroClass,
+                this.backPack,
+                this.equipped
+        );
+        return heroObj;
+    }
+
     public void updateBackPack(Artifact item){
 //        System.out.println("Saving to backpack");
         this.backPack.add(item);
@@ -84,9 +102,17 @@ public class Hero {
     }
 
     public void equipItem(Artifact item){
-//        System.out.println("saving to equipment");
         removeItem(item);
+        if (classMatch(item.getType()) != null)
+            unequipItem(classMatch(item.getType()));
         this.equipped.add(item);
+    }
+    private Artifact classMatch(String itemClass){
+        for (Artifact item: equipped){
+            if (item.getType().equals(itemClass))
+                return item;
+        }
+        return null;
     }
 
     public void unequipItem(Artifact item){
