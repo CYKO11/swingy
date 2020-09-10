@@ -42,7 +42,7 @@ public class MapFrame extends JFrame implements ActionListener {
         Run = new JButton("Action: Run");
 
         /// Set Map
-        Map = new JLabel("No map generated");
+        Map = new JLabel("No map generated", SwingConstants.CENTER);
         if (gameEngine.getWorld().exportMapString() != null)
             Map.setText(gameEngine.getWorld().exportMapString());
 
