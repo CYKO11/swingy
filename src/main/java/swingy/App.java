@@ -1,6 +1,7 @@
 package swingy;
 
 import swingy.controller.ActionEngine;
+import swingy.view.MainMenu;
 import swingy.view.TextUI;
 
 import java.io.IOException;
@@ -12,9 +13,14 @@ import java.io.IOException;
 public class App {
     public static void main( String[] args ) {
         ActionEngine gameEngine =  new ActionEngine();
-        TextUI textGame = new TextUI(gameEngine);
-        try {
-            textGame.init();
+//        TextUI textGame = new TextUI(gameEngine);
+//        try {
+//            textGame.init();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        try{
+            new MainMenu(gameEngine);
         } catch (IOException e) {
             e.printStackTrace();
         }

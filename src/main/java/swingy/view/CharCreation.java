@@ -1,5 +1,6 @@
 package swingy.view;
 
+import swingy.controller.ActionEngine;
 import swingy.model.*;
 import swingy.view.*;
 
@@ -11,17 +12,19 @@ import java.util.ArrayList;
 
 public class CharCreation extends JFrame implements ActionListener {
 
-    private JTextField  textField;
-    private JButton     Normie, Weeb, Otaku, Methhead, Submit, Start;
-    private JPanel      p1;
-    private JPanel      name;
-    private JPanel      start;
-    private JLabel      heroHint;
-    private JLabel      blank;
-    private JLabel      nothing;
+    private JTextField      textField;
+    private JButton         Normie, Weeb, Otaku, Methhead, Submit, Start;
+    private JPanel          p1;
+    private JPanel          name;
+    private JPanel          start;
+    private JLabel          heroHint;
+    private JLabel          blank;
+    private JLabel          nothing;
+    private ActionEngine    game;
 
-    public CharCreation(){
+    public CharCreation(ActionEngine gameEngine){
 
+        this.game = gameEngine;
         this.setTitle("World of Anime");
         this.setSize(450, 400);
         this.setLocationRelativeTo(null);
@@ -104,10 +107,19 @@ public class CharCreation extends JFrame implements ActionListener {
             blank.setText("Methhead");
         }
         else if (ae.equals(this.Start)){
-
-            if (!textField.equals("")){
+            if (!textField.equals("") && !blank.equals("")){
                 System.out.println("Starting Game");
-                Hero hero = new Hero(textField.getText(), blank.getText());
+                this.game.getGameData().createHero(textField.getText(), blank.getText());
+                game.init();
+                setVisible(false); //you can't see me!
+                dispose(); //Destroy the JFrame object
+                new MapFrame(game);
+            }
+            else if(textField.equals("")){
+                blank.setText("Enter a Name for your Hero and reselect your class");
+            }
+            else if (blank.equals("")){
+                blank.setText("Select a class");
             }
 
         }

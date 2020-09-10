@@ -1,5 +1,6 @@
 package swingy.view;
 
+import swingy.controller.ActionEngine;
 import swingy.model.*;
 import swingy.view.*;
 
@@ -20,19 +21,20 @@ import javax.swing.JPanel;
 
 public class MainMenu extends JFrame implements ActionListener{
 
-    private GameData        gamedata;
     private JPanel          Mainb;
     private JPanel          Maintitle;
     private JLabel          title;
     private JPanel          Mainbtns;
     private JButton         loadGame, newGame;
+    private ActionEngine    game;
     BufferedImage myPicture = ImageIO.read(new File("src\\main\\java\\swingy\\Loli.png"));
     JLabel picLabel = new JLabel(new ImageIcon(myPicture));
     JLabel picLabel2 = new JLabel(new ImageIcon(myPicture));
 
 
-    public MainMenu() throws IOException {
+    public MainMenu(ActionEngine gameEngine) throws IOException {
 
+        this.game = gameEngine;
         this.setTitle("World of Anime");
         this.setSize(450, 400);
         this.setLocationRelativeTo(null);
@@ -84,12 +86,19 @@ public class MainMenu extends JFrame implements ActionListener{
 
         if (ae.equals(this.newGame)){
             System.out.println("NewGame selected");
-            new CharCreation();
+            setVisible(false); //you can't see me!
+            dispose(); //Destroy the JFrame object
+            new CharCreation(this.game);
         }
         else if (ae.equals(this.loadGame)){
             System.out.println("loading Game");
-            gamedata = new GameData();
-            gamedata.loadHero();
+            if (game.getGameData().checkLoad()) {
+                game.getGameData().loadHero();
+                game.init();
+                setVisible(false); //you can't see me!
+                dispose(); //Destroy the JFrame object
+                new MapFrame(game);
+            }
         }
     }
 
