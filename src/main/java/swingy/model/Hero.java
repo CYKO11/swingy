@@ -52,7 +52,7 @@ public class Hero {
         else if (str.equals("otaku")){
             this.stats = new Stats(80,35,7,0,1);
         }
-        else if (str.equals("MethHead")){
+        else if (str.equals("methhead")){
             this.stats = new Stats(100,25,0,500,1);
         }
         else {

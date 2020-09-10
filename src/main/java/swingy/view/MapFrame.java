@@ -25,7 +25,9 @@ public class MapFrame extends JFrame implements ActionListener {
     public MapFrame(ActionEngine gameEngine) {
 
         game = gameEngine;
+        Color myColor = new Color(90,151,255);
         this.setTitle("World of Anime");
+        this.getContentPane().setBackground(Color.BLUE);
         this.setSize(550, 550);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,6 +37,7 @@ public class MapFrame extends JFrame implements ActionListener {
 //        Main = new JPanel(new GridLayout(1, 1));
 //        Main2 = new JPanel(new GridLayout(1, 1));
         MainBtns = new JPanel();
+        MainBtns.setBackground(myColor);
         South = new JButton("Move: South [s]");
         West = new JButton("Move: West [a]");
         North = new JButton("Move: North [w]");
@@ -52,6 +55,8 @@ public class MapFrame extends JFrame implements ActionListener {
         Map = new JLabel("No map generated");
         if (gameEngine.getWorld().exportMapHtml() != null)
             Map.setText(gameEngine.getWorld().exportMapHtml());
+        Map.setBackground(myColor);
+        Map.setForeground(Color.WHITE);
 
         //Graph layout
         MainBtns.add(West);

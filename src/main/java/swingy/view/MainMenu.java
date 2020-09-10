@@ -35,7 +35,9 @@ public class MainMenu extends JFrame implements ActionListener{
     public MainMenu(ActionEngine gameEngine) throws IOException {
 
         this.game = gameEngine;
+        Color myColor = new Color(90,151,255);
         this.setTitle("World of Anime");
+        this.getContentPane().setBackground(Color.BLUE);
         this.setSize(450, 400);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,6 +56,10 @@ public class MainMenu extends JFrame implements ActionListener{
         Mainb.setLayout(new GridLayout(1,1));
         Maintitle.setLayout(new GridLayout(1, 3));
         Mainbtns.setLayout(new GridLayout(2, 3));
+        Mainb.setBackground(myColor);
+        Maintitle.setBackground(myColor);
+        Mainbtns.setBackground(myColor);
+        title.setForeground(Color.WHITE);
 
         title.setHorizontalAlignment(SwingConstants.CENTER);
 

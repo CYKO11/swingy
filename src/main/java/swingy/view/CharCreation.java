@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class CharCreation extends JFrame implements ActionListener {
 
     private JTextField      textField;
-    private JButton         Normie, Weeb, Otaku, Methhead, Submit, Start;
+    private JButton         Normie, Weeb, Otaku, Methhead, Start;
     private JPanel          p1;
     private JPanel          name;
     private JPanel          start;
@@ -25,7 +25,9 @@ public class CharCreation extends JFrame implements ActionListener {
     public CharCreation(ActionEngine gameEngine){
 
         this.game = gameEngine;
+        Color myColor = new Color(90,151,255);
         this.setTitle("World of Anime");
+        this.getContentPane().setBackground(myColor);
         this.setSize(450, 400);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,11 +37,17 @@ public class CharCreation extends JFrame implements ActionListener {
         this.textField = new JTextField(25);
 
         heroHint = new JLabel("Hero Name:");
+        heroHint.setForeground(Color.WHITE);
         nothing = new JLabel("Class: ");
+        nothing.setForeground(Color.WHITE);
         blank = new JLabel(" ");
+        blank.setForeground(Color.WHITE);
         name = new JPanel();
+        name.setBackground(myColor);
         p1 = new JPanel();
+        p1.setBackground(myColor);
         start = new JPanel();
+        start.setBackground(myColor);
         name.setLayout(new GridLayout(2, 2));
         p1.setLayout(new GridLayout(2,2));
 
@@ -107,7 +115,9 @@ public class CharCreation extends JFrame implements ActionListener {
             blank.setText("Methhead");
         }
         else if (ae.equals(this.Start)){
-            if (!textField.equals("") && !blank.equals("")){
+            System.out.println(textField.getText());
+            System.out.println(blank.getText());
+            if (!textField.getText().equals("") && !blank.getText().equals(" ")){
                 System.out.println("Starting Game");
                 this.game.getGameData().createHero(textField.getText(), blank.getText());
                 game.init();
@@ -115,11 +125,14 @@ public class CharCreation extends JFrame implements ActionListener {
                 dispose(); //Destroy the JFrame object
                 new MapFrame(game);
             }
-            else if(textField.equals("")){
-                blank.setText("Enter a Name for your Hero and reselect your class");
+            else if(textField.getText().equals("") && blank.getText().equals(" ")){
+                JOptionPane.showMessageDialog(null,"You must enter a Name and select a Class");
             }
-            else if (blank.equals("")){
-                blank.setText("Select a class");
+            else if(textField.getText().equals("")){
+                JOptionPane.showMessageDialog(null,"You must enter a Name");
+            }
+            else if (blank.getText().equals(" ")){
+                JOptionPane.showMessageDialog(null,"You must select a Class");
             }
 
         }
