@@ -1,7 +1,7 @@
 package swingy;
 
 import swingy.controller.ActionEngine;
-import swingy.view.MainMenu;
+import swingy.view.MainMenuGUI;
 import swingy.view.TextUI;
 
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class App {
 //            e.printStackTrace();
 //        }
         try{
-            new MainMenu(gameEngine);
+            new MainMenuGUI(gameEngine);
         } catch (IOException e) {
             e.printStackTrace();
         }

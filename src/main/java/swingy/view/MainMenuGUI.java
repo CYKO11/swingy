@@ -1,25 +1,18 @@
 package swingy.view;
 
 import swingy.controller.ActionEngine;
-import swingy.model.*;
-import swingy.view.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-public class MainMenu extends JFrame implements ActionListener{
+public class MainMenuGUI extends JFrame implements ActionListener{
 
     private JPanel          Mainb;
     private JPanel          Maintitle;
@@ -32,7 +25,7 @@ public class MainMenu extends JFrame implements ActionListener{
     JLabel picLabel2 = new JLabel(new ImageIcon(myPicture));
 
 
-    public MainMenu(ActionEngine gameEngine) throws IOException {
+    public MainMenuGUI(ActionEngine gameEngine) throws IOException {
 
         this.game = gameEngine;
         Color myColor = new Color(90,151,255);
@@ -94,7 +87,7 @@ public class MainMenu extends JFrame implements ActionListener{
             System.out.println("NewGame selected");
             setVisible(false); //you can't see me!
             dispose(); //Destroy the JFrame object
-            new CharCreation(this.game);
+            new CharCreationGUI(this.game);
         }
         else if (ae.equals(this.loadGame)){
             System.out.println("loading Game");
@@ -103,7 +96,7 @@ public class MainMenu extends JFrame implements ActionListener{
                 game.init();
                 setVisible(false); //you can't see me!
                 dispose(); //Destroy the JFrame object
-                new MapFrame(game);
+                new GameGUI(game);
             }
         }
     }

@@ -1,16 +1,13 @@
 package swingy.view;
 
 import swingy.controller.ActionEngine;
-import swingy.model.*;
-import swingy.view.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
-public class CharCreation extends JFrame implements ActionListener {
+public class CharCreationGUI extends JFrame implements ActionListener {
 
     private JTextField      textField;
     private JButton         Normie, Weeb, Otaku, Methhead, Start;
@@ -22,7 +19,7 @@ public class CharCreation extends JFrame implements ActionListener {
     private JLabel          nothing;
     private ActionEngine    game;
 
-    public CharCreation(ActionEngine gameEngine){
+    public CharCreationGUI(ActionEngine gameEngine){
 
         this.game = gameEngine;
         Color myColor = new Color(90,151,255);
@@ -123,7 +120,7 @@ public class CharCreation extends JFrame implements ActionListener {
                 game.init();
                 setVisible(false); //you can't see me!
                 dispose(); //Destroy the JFrame object
-                new MapFrame(game);
+                new GameGUI(game);
             }
             else if(textField.getText().equals("") && blank.getText().equals(" ")){
                 JOptionPane.showMessageDialog(null,"You must enter a Name and select a Class");

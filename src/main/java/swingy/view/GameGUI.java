@@ -2,17 +2,14 @@ package swingy.view;
 
 import swingy.controller.ActionEngine;
 import swingy.controller.CombatReport;
-import swingy.controller.WorldGeneration;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
-public class MapFrame extends JFrame implements ActionListener {
+public class GameGUI extends JFrame implements ActionListener {
 
 //    private JPanel          Main;
 //    private JPanel          Main2;
@@ -22,7 +19,7 @@ public class MapFrame extends JFrame implements ActionListener {
     private CombatReport    combatreport;
     private ActionEngine    game;
 
-    public MapFrame(ActionEngine gameEngine) {
+    public GameGUI(ActionEngine gameEngine) {
 
         game = gameEngine;
         Color myColor = new Color(90,151,255);
@@ -88,7 +85,7 @@ public class MapFrame extends JFrame implements ActionListener {
                 try {
                     setVisible(false); //you can't see me!
                     dispose(); //Destroy the JFrame object
-                    new MainMenu(game);
+                    new MainMenuGUI(game);
                 } catch (IOException interruptedException) {
                     interruptedException.printStackTrace();
                 }
