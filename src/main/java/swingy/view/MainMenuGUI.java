@@ -18,7 +18,7 @@ public class MainMenuGUI extends JFrame implements ActionListener{
     private JPanel          Maintitle;
     private JLabel          title;
     private JPanel          Mainbtns;
-    private JButton         loadGame, newGame;
+    private JButton         loadGame, newGame, textMode;
     private ActionEngine    game;
     BufferedImage myPicture = ImageIO.read(new File("src\\main\\java\\swingy\\Loli.png"));
     JLabel picLabel = new JLabel(new ImageIcon(myPicture));
@@ -44,9 +44,10 @@ public class MainMenuGUI extends JFrame implements ActionListener{
         title = new JLabel("World Of Anime");
         loadGame = new JButton("Load Game");
         newGame = new JButton("New Game");
+        textMode = new JButton("Text Mode");
 
         setLayout(new GridLayout(3, 1));
-        Mainb.setLayout(new GridLayout(1,1));
+        Mainb.setLayout(new GridLayout(2,3));
         Maintitle.setLayout(new GridLayout(1, 3));
         Mainbtns.setLayout(new GridLayout(2, 3));
         Mainb.setBackground(myColor);
@@ -69,10 +70,15 @@ public class MainMenuGUI extends JFrame implements ActionListener{
         this.add(Mainbtns);
         Mainb.add(new JLabel(" "));
         Mainb.add(new JLabel(" "));
+        Mainb.add(new JLabel(" "));
+        Mainb.add(new JLabel(" "));
+        Mainb.add(textMode);
+        Mainb.add(new JLabel(" "));
         this.add(Mainb);
 
         loadGame.addActionListener(this);
         newGame.addActionListener(this);
+        textMode.addActionListener(this);
 
 
         this.setResizable(false);
@@ -97,6 +103,15 @@ public class MainMenuGUI extends JFrame implements ActionListener{
                 setVisible(false); //you can't see me!
                 dispose(); //Destroy the JFrame object
                 new GameGUI(game);
+            }
+        }
+        else if (ae.equals(this.textMode)){
+            try {
+                setVisible(false); //you can't see me!
+                dispose(); //Destroy the JFrame object
+                new MainMenuText(game);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
             }
         }
     }

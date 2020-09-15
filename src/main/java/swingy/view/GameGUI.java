@@ -15,7 +15,7 @@ public class GameGUI extends JFrame implements ActionListener {
 //    private JPanel          Main2;
     private JPanel          MainBtns;
     private JLabel          Map;
-    private JButton         South, East, North, West, Inventory;
+    private JButton         South, East, North, West, Inventory, TextMode;
     private CombatReport    combatreport;
     private ActionEngine    game;
 
@@ -40,6 +40,7 @@ public class GameGUI extends JFrame implements ActionListener {
         North = new JButton("Move: North [w]");
         East = new JButton("Move: East [d]");
         Inventory = new JButton("Inventory");
+        TextMode = new JButton("Text Mode");
 
         if (game.getWorld().boundsY > 15)
             this.setSize(1500, 1500);
@@ -57,6 +58,7 @@ public class GameGUI extends JFrame implements ActionListener {
         MainBtns.add(South);
         MainBtns.add(East);
         MainBtns.add(Inventory);
+        MainBtns.add(TextMode);
         Map.setHorizontalAlignment(SwingConstants.CENTER);
         Map.setVerticalAlignment(SwingConstants.CENTER);
 //        Main2.add(new JLabel(""));
@@ -71,6 +73,7 @@ public class GameGUI extends JFrame implements ActionListener {
         South.addActionListener(this);
         West.addActionListener(this);
         Inventory.addActionListener(this);
+        TextMode.addActionListener(this);
 
         this.setResizable(false);
         this.setVisible(true);
@@ -204,6 +207,15 @@ public class GameGUI extends JFrame implements ActionListener {
         }
         else if (ae.equals(this.Inventory)){
             new InventoryGUI(this.game);
+        }
+        else if (ae.equals(this.TextMode)){
+            try {
+                setVisible(false); //you can't see me!
+                dispose(); //Destroy the JFrame object
+                new GameText(game);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         }
 
     }
