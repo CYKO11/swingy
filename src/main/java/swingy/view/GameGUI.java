@@ -15,7 +15,7 @@ public class GameGUI extends JFrame implements ActionListener {
 //    private JPanel          Main2;
     private JPanel          MainBtns;
     private JLabel          Map;
-    private JButton         South, East, North, West, Inventory, TextMode;
+    private JButton         South, East, North, West, Inventory, TextMode, saveGame;
     private CombatReport    combatreport;
     private ActionEngine    game;
 
@@ -41,6 +41,7 @@ public class GameGUI extends JFrame implements ActionListener {
         East = new JButton("Move: East [d]");
         Inventory = new JButton("Inventory");
         TextMode = new JButton("Text Mode");
+        saveGame = new JButton("Save Game");
 
         if (game.getWorld().boundsY > 15)
             this.setSize(1500, 1500);
@@ -59,6 +60,7 @@ public class GameGUI extends JFrame implements ActionListener {
         MainBtns.add(East);
         MainBtns.add(Inventory);
         MainBtns.add(TextMode);
+        MainBtns.add(saveGame);
         Map.setHorizontalAlignment(SwingConstants.CENTER);
         Map.setVerticalAlignment(SwingConstants.CENTER);
 //        Main2.add(new JLabel(""));
@@ -74,6 +76,7 @@ public class GameGUI extends JFrame implements ActionListener {
         West.addActionListener(this);
         Inventory.addActionListener(this);
         TextMode.addActionListener(this);
+        saveGame.addActionListener(this);
 
         this.setResizable(false);
         this.setVisible(true);
@@ -216,6 +219,10 @@ public class GameGUI extends JFrame implements ActionListener {
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
+        }
+        else if (ae.equals(this.saveGame)){
+            game.getGameData().saveHero();
+            JOptionPane.showMessageDialog(null,"You game session has been saved");
         }
 
     }

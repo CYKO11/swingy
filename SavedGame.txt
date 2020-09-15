@@ -1,13 +1,10 @@
-Armour 7
-AtkDmg 2
-HP 5
+Armour 10
+AtkDmg 15
+HP 145
 Lvl 1
-XP 3750
+XP 0
 Name Bilko
-heroClass otaku
+heroClass weeb
 Backpack
-Bronze Chestplate
-Chieftians Armour
-Ludens Echo
-Two String Bow
 equipment
+Tattered Rangs

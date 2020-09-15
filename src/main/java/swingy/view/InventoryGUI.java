@@ -183,16 +183,23 @@ public class InventoryGUI extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null,"You have equipped "+bag.get(this.index).getName());
                 game.getGameData().getTmpHero().equipItem(bag.get(this.index));
                 listSize = bag.size();
-                if (this.index > (listSize-1))
+                if (this.index > (listSize-1) && listSize != 0)
                     this.index = listSize-1;
-                this.backPack = bag.get(this.index);
-                this.itemName.setText(backPack.getName());
-                atk = backPack.getDamage();
-                armor = backPack.getArmour();
-                hp = backPack.getHp();
-                atkL.setText("Atk: "+atk);
-                armorL.setText("Armor: "+armor);
-                hpL.setText("HP: "+hp);
+                if (listSize != 0) {
+                    this.backPack = bag.get(this.index);
+                    this.itemName.setText(backPack.getName());
+                    atk = backPack.getDamage();
+                    armor = backPack.getArmour();
+                    hp = backPack.getHp();
+                    atkL.setText("Atk: " + atk);
+                    armorL.setText("Armor: " + armor);
+                    hpL.setText("HP: " + hp);
+                } else {
+                    this.itemName.setText("Empty");
+                    atkL.setText("Atk: 0");
+                    armorL.setText("Armor: 0");
+                    hpL.setText("HP: 0");
+                }
             } else {
                 JOptionPane.showMessageDialog(null,"No items in inventory");
             }
