@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;  // Import the IOException class to handle errors
 import java.lang.reflect.Array;
 
-public class SaveGame {
+public class  SaveGame {
 
     public void saveData(Hero ObjHero){
 
