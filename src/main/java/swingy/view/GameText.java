@@ -2,21 +2,25 @@ package swingy.view;
 
 import swingy.controller.ActionEngine;
 import swingy.controller.CombatReport;
+import swingy.model.Artifact;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameText {
     public GameText(ActionEngine gameEngine) throws IOException {
         new TextRenderer().renderMap(gameEngine.getWorld());
         String in = new TextRenderer().render(
                 "Move (n,s,e,w)",
-                new String[]{"n","s","e","w","gui","exit"},
+                new String[]{"n","s","e","w","gui","exit","i"},
                 1
         );
         if (in.equals("exit")){
             new MainMenuText(gameEngine);
         } else if (in.equals("i")) {
 //            inventory
+            inventory(gameEngine);
         } else if (in.equals("gui")) {
             new GameGUI(gameEngine);
         } else {
@@ -62,6 +66,47 @@ public class GameText {
             }
         }
     }
+
+    private void inventory(ActionEngine gameEngine) throws IOException {
+        int pos = 0;
+        List<Artifact> backpack = gameEngine.getGameData().getTmpHero().getBackPack();
+        while (pos < backpack.size()){
+            System.out.println(backpack.get(pos).getName());
+            pos++;
+        }
+        String in = new TextRenderer().render(
+                "\nWhich actions do you wish to perform\n(e): equip\n(u): unequip\n(d): delete item\n(r) return to game",
+                new String[]{"e","u","d","r"},
+                1
+        );
+        if (!in.equals("exit"))
+            new GameText(gameEngine);
+        else {
+            if (in.equals("e")) {
+//                String itemNumber = new TextRenderer().render(
+//                        "What item do you wish to equip",
+//                        new String[]{"e","u","d","r"},
+//                        1
+//                );
+//                gameEngine.getGameData().getTmpHero().equipItem();
+            } else if (in.equals("u")) {
+
+            } else if (in.equals("d")) {
+
+            }
+        }
+        new GameText(gameEngine);
+    }
+
+    private String[] toStringArray(List<Artifact> backpack){
+        List<String> nameArray = new ArrayList<>();
+        for (Artifact item : backpack){
+            nameArray.add(item.getName());
+        }
+        nameArray.add("r");
+        return (String[]) nameArray.toArray();
+    }
+
     private void die(){
         System.out.println(" << YOU DIED >>");
     }

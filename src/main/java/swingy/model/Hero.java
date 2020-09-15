@@ -65,15 +65,16 @@ public class Hero {
         this.stats = new Stats(HP, AtkDmg, armor, xp, lvl);
         this.name = name;
         this.heroClass = Class;
-        for (int i = 0; i < backpack.size(); i++) {
-            updateBackPack(backpack.get(i));
-            i++;
-        }
-        for (int i = 0; i < equipment.size(); i++){
-            equipItem(equipment.get(i));
-            i++;
-        }
-//        System.out.println("hero loaded!");
+        this.backPack = backpack;
+        this.equipped = equipment;
+//        for (int i = 0; i < backpack.size(); i++) {
+//            updateBackPack(backpack.get(i));
+//            i++;
+//        }
+//        for (int i = 0; i < equipment.size(); i++){
+//            equipItem(equipment.get(i));
+//            i++;
+//        }
     }
 
     public Hero duplicateHero(){

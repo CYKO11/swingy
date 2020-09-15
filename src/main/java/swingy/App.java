@@ -1,8 +1,10 @@
 package swingy;
 
 import swingy.controller.ActionEngine;
+import swingy.view.GameText;
 import swingy.view.MainMenuGUI;
 import swingy.view.MainMenuText;
+import swingy.view.TextRenderer;
 
 import java.io.IOException;
 
@@ -19,6 +21,17 @@ public class App {
                     new MainMenuText(gameEngine);
                 else if (args[0].equals("gui"))
                     new MainMenuGUI(gameEngine);
+                else if (args[0].equals("test")){
+                    if (gameEngine.getGameData().checkLoad()){
+                        gameEngine.getGameData().loadHero();
+                        gameEngine.init();
+                        new GameText(gameEngine);
+                    }
+                    else {
+                        new TextRenderer().out("No save game available");
+                        new MainMenuText(gameEngine);
+                    }
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

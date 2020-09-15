@@ -8,7 +8,7 @@ public class MainMenuText {
     public MainMenuText(ActionEngine gameEngine) throws IOException {
         String in = new TextRenderer().render(
                 " < Menu > \n(l): load game\n(n): new game\n(e): exit\n(g): gui",
-                new String[]{"l","n","e","g"},
+                new String[]{"l","n","e","g","test"},
                 1
         );
         if (in.equals("l")){
