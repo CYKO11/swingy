@@ -2,6 +2,7 @@ package swingy;
 
 import swingy.controller.ActionEngine;
 import swingy.view.MainMenuGUI;
+import swingy.view.MainMenuText;
 import swingy.view.TextUI;
 
 import java.io.IOException;
@@ -13,14 +14,13 @@ import java.io.IOException;
 public class App {
     public static void main( String[] args ) {
         ActionEngine gameEngine =  new ActionEngine();
-        TextUI textGame = new TextUI(gameEngine);
-//        try {
-//            textGame.init();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         try{
-            new MainMenuGUI(gameEngine);
+            if (args.length == 1){
+                if (args[0].equals("text"))
+                    new MainMenuText().menu(gameEngine, "text");
+                else if (args[0].equals("gui"))
+                    new MainMenuGUI(gameEngine);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
