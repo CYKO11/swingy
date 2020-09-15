@@ -3,7 +3,6 @@ package swingy;
 import swingy.controller.ActionEngine;
 import swingy.view.MainMenuGUI;
 import swingy.view.MainMenuText;
-import swingy.view.TextUI;
 
 import java.io.IOException;
 

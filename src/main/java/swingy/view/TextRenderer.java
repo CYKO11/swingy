@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
 
-public class Renderer {
+public class TextRenderer {
     public String render(String out, String[] options, int inputCheckToggle) throws IOException {
         System.out.println(out);
         System.out.print(">>> ");

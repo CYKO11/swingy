@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class MainMenuText {
     public MainMenuText(ActionEngine gameEngine) throws IOException {
-        String in = new Renderer().render(
+        String in = new TextRenderer().render(
                 " < Menu > \n(l): load game\n(n): new game\n(e): exit\n(g): gui",
                 new String[]{"l","n","e","g"},
                 1
@@ -18,7 +18,7 @@ public class MainMenuText {
                 new GameText(gameEngine);
             }
             else {
-                new Renderer().out("No save game available");
+                new TextRenderer().out("No save game available");
                 new MainMenuText(gameEngine);
             }
         } else if (in.equals("n")) {
