@@ -1,17 +1,13 @@
-Armour 10
-AtkDmg 153333333
-HP 45
+Armour 7
+AtkDmg 2
+HP 5
 Lvl 1
-XP 15000
-Name CYKO
-heroClass weeb
+XP 3750
+Name Bilko
+heroClass otaku
 Backpack
-B.R.A (battle ready armour)
-Attack dog
-Chair
-Two String Bow
+Bronze Chestplate
+Chieftians Armour
 Ludens Echo
-Susanoo
-Waifu Panties
-Methheads Beanie
+Two String Bow
 equipment
