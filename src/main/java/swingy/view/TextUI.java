@@ -121,7 +121,6 @@ public class TextUI {
             if (in.equals("y")){
                 gameEngine.getGameData().getTmpHero().updateBackPack(report.drop);
             }
-            game();
         }
     }
 
