@@ -12,8 +12,11 @@ public class MainMenuText {
                 1
         );
         if (in.equals("l")){
-            if (gameEngine.getGameData().checkLoad())
+            if (gameEngine.getGameData().checkLoad()){
                 gameEngine.getGameData().loadHero();
+                gameEngine.init();
+                new GameText(gameEngine);
+            }
             else {
                 new Renderer().out("No save game available");
                 new MainMenuText(gameEngine);
