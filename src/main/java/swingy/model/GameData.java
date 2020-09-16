@@ -43,6 +43,12 @@ public class GameData {
         }
     }
 
+    public void nextMap(){
+        tmpHero.resetHealth();
+        hero = tmpHero.duplicateHero();
+        saveHero();
+    }
+
     public void loadHero() { hero = loadBuffer.duplicateHero(); }
 
     public void saveHero(){ new SaveGame().saveData(hero); }

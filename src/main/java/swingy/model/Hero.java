@@ -1,7 +1,5 @@
 package swingy.model;
 
-import sun.security.krb5.internal.crypto.Aes128;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,6 +74,35 @@ public class Hero {
 //            i++;
 //        }
     }
+    public void resetHealth(){
+        if (getHeroClass().equals("normie")){
+            this.stats = new Stats(125, stats.getAtkDmg(), stats.getArmor(), stats.getXp(), stats.getLevel());
+        }
+        else if (getHeroClass().equals("weeb")){
+            this.stats = new Stats(145,stats.getAtkDmg(), stats.getArmor(), stats.getXp(), stats.getLevel());
+        }
+        else if (getHeroClass().equals("otaku")){
+            this.stats = new Stats(80,stats.getAtkDmg(), stats.getArmor(), stats.getXp(), stats.getLevel());
+        }
+        else if (getHeroClass().equals("methhead")){
+            this.stats = new Stats(100,stats.getAtkDmg(), stats.getArmor(), stats.getXp(), stats.getLevel());
+        }
+        else {
+            System.out.println("Invalid Class");
+        }
+    }
+
+    public int[] getEquipmentStats(){
+        int hp = 0;
+        int atk = 0;
+        int arm  = 0;
+        for (Artifact item : equipped){
+            hp += item.getHp();
+            atk += item.getDamage();
+            arm += item.getArmour();
+        }
+        return new int[]{atk,hp,arm};
+    }
 
     public Hero duplicateHero(){
         Hero heroObj = new Hero(name , heroClass);
@@ -94,7 +121,6 @@ public class Hero {
     }
 
     public void updateBackPack(Artifact item){
-//        System.out.println("Saving to backpack");
         this.backPack.add(item);
     }
 

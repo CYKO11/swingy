@@ -1,17 +1,21 @@
 Armour 10
 AtkDmg 153333333
-HP 45
+HP 145
 Lvl 1
-XP 15000
+XP 20250
 Name CYKO
 heroClass weeb
 Backpack
-B.R.A (battle ready armour)
-Attack dog
-Chair
 Two String Bow
 Ludens Echo
 Susanoo
 Waifu Panties
 Methheads Beanie
+Attack dog
+Methheads Beanie
+Nakagami
+Chair
+Waifu Panties
 equipment
+Chair
+B.R.A (battle ready armour)

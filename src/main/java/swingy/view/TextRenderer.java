@@ -1,6 +1,7 @@
 package swingy.view;
 import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 import com.sun.source.tree.BreakTree;
+import swingy.controller.Interaction;
 import swingy.controller.WorldGeneration;
 import swingy.model.MapData;
 
@@ -24,8 +25,15 @@ public class TextRenderer {
                     return render(out, options, inputCheckToggle);
                 }
                 return in;
-            }
-            else if (in.toLowerCase().equals(options[pos].toLowerCase())) {
+            } else if (inputCheckToggle == 2) {
+                if (in.equals("r"))
+                    return "-1";
+                if ((checkParse(in) && Integer.parseInt(in) <= Integer.parseInt(options[0])) && Integer.parseInt(in) >= 0){
+                    return in;
+                } else {
+                    System.out.println("\n invalid number , range is 1 to " + options[0]);
+                }
+            } else if (in.toLowerCase().equals(options[pos].toLowerCase())) {
                 final String s = in.toLowerCase();
                 return s;
             }
@@ -34,9 +42,20 @@ public class TextRenderer {
         System.out.println("\n INVALID INPUT");
         return render(out, options, inputCheckToggle);
     }
+
+    private boolean checkParse(String number){
+        try {
+            Integer.parseInt(number);
+            return true;
+        } catch (NumberFormatException e){
+            return false;
+        }
+    }
+
     public void out(String in){
         System.out.println(in);
     }
+
     public void outAwait(String in) throws IOException {
         System.out.println(in);
         System.in.read();

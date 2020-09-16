@@ -7,9 +7,9 @@ public class Interaction {
 
     public Hero combat(Hero tmphero, Enemy enemy){
 
-        long Hatk = tmphero.getStats().getAtkDmg();
+        long Hatk = tmphero.getStats().getAtkDmg() + tmphero.getEquipmentStats()[0];
         long Eatk = enemy.getEnemyAtkDmg();
-        long HHP = tmphero.getStats().getHP();
+        long HHP = tmphero.getStats().getHP() + tmphero.getEquipmentStats()[1] + tmphero.getEquipmentStats()[1];
         long EHP = enemy.getEnemyHP();
         long dmg;
         int XP;

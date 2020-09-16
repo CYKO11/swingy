@@ -12,14 +12,13 @@ public class GameText {
     public GameText(ActionEngine gameEngine) throws IOException {
         new TextRenderer().renderMap(gameEngine.getWorld());
         String in = new TextRenderer().render(
-                "Move (n,s,e,w)",
+                "Move (n,s,e,w), inventory (i) , extra commands (gui,exit)",
                 new String[]{"n","s","e","w","gui","exit","i"},
                 1
         );
         if (in.equals("exit")){
             new MainMenuText(gameEngine);
         } else if (in.equals("i")) {
-//            inventory
             inventory(gameEngine);
         } else if (in.equals("gui")) {
             new GameGUI(gameEngine);
@@ -27,6 +26,7 @@ public class GameText {
             CombatReport report = gameEngine.preMove(in);
             System.out.println(report.proceed);
             if (report.proceed) {
+                gameEngine.getGameData().nextMap();
                 gameEngine.genWorld(gameEngine.getGameData().tmpHero);
                 new GameText(gameEngine);
             } else if (report.combat){
@@ -68,34 +68,69 @@ public class GameText {
     }
 
     private void inventory(ActionEngine gameEngine) throws IOException {
-        int pos = 0;
-        List<Artifact> backpack = gameEngine.getGameData().getTmpHero().getBackPack();
-        while (pos < backpack.size()){
-            System.out.println(backpack.get(pos).getName());
-            pos++;
-        }
         String in = new TextRenderer().render(
-                "\nWhich actions do you wish to perform\n(e): equip\n(u): unequip\n(d): delete item\n(r) return to game",
-                new String[]{"e","u","d","r"},
+                "\nWhich actions do you wish to perform\n(e): equip\n(u): unequip\n(d): delete \n(l) list inventory and equipped\n(r) return to game",
+                new String[]{"e","u","d","r","l"},
                 1
         );
-        if (!in.equals("exit"))
+        if (in.equals("r"))
             new GameText(gameEngine);
-        else {
+        else if (in.equals("l")) {
+            printLoadout(gameEngine.getGameData().tmpHero.getBackPack(),gameEngine.getGameData().tmpHero.getEquipped());
+            new TextRenderer().outAwait("Press enter to continue");
+            inventory(gameEngine);
+        } else {
             if (in.equals("e")) {
-//                String itemNumber = new TextRenderer().render(
-//                        "What item do you wish to equip",
-//                        new String[]{"e","u","d","r"},
-//                        1
-//                );
-//                gameEngine.getGameData().getTmpHero().equipItem();
-            } else if (in.equals("u")) {
-
+                if (gameEngine.getGameData().tmpHero.getBackPack().size() == 0){
+                    new TextRenderer().outAwait("You have no items in your inventory , press enter to continue");
+                    inventory(gameEngine);
+                }
+                printList(gameEngine.getGameData().tmpHero.getBackPack());
+                String itemNumber = new TextRenderer().render(
+                        "What item do you wish to equip, input r to abort selection",
+                        new String[]{Integer.toString(gameEngine.getGameData().tmpHero.getBackPack().size())},
+                        2
+                );
+                if (itemNumber.equals("-1")){
+                    inventory(gameEngine);
+                } else {
+                    gameEngine.getGameData().getTmpHero().equipItem(gameEngine.getGameData().tmpHero.getBackPack().get(Integer.parseInt(itemNumber)));
+                }
+            }  else if (in.equals("u")) {
+                if (gameEngine.getGameData().tmpHero.getEquipped().size() == 0){
+                    new TextRenderer().outAwait("You have no items equipped , press enter to continue");
+                    inventory(gameEngine);
+                }
+                printList(gameEngine.getGameData().tmpHero.getEquipped());
+                String itemNumber = new TextRenderer().render(
+                        "What item do you wish to unequip, input r to abort selection",
+                        new String[]{Integer.toString(gameEngine.getGameData().tmpHero.getEquipped().size())},
+                        2
+                );
+                if (itemNumber.equals("-1")){
+                    inventory(gameEngine);
+                } else {
+                    gameEngine.getGameData().getTmpHero().unequipItem(gameEngine.getGameData().tmpHero.getEquipped().get(Integer.parseInt(itemNumber)));
+                }
             } else if (in.equals("d")) {
-
+                if (gameEngine.getGameData().tmpHero.getBackPack().size() == 0){
+                    new TextRenderer().outAwait("You have no items in your inventory , press enter to continue");
+                    inventory(gameEngine);
+                }
+                printList(gameEngine.getGameData().tmpHero.getBackPack());
+                String itemNumber = new TextRenderer().render(
+                        "What item do you wish to remove, input r to abort selection",
+                        new String[]{Integer.toString(gameEngine.getGameData().tmpHero.getBackPack().size())},
+                        2
+                );
+                if (itemNumber.equals("-1")){
+                    inventory(gameEngine);
+                } else {
+                    gameEngine.getGameData().getTmpHero().removeItem(gameEngine.getGameData().tmpHero.getBackPack().get(Integer.parseInt(itemNumber)));
+                }
             }
+            inventory(gameEngine);
         }
-        new GameText(gameEngine);
     }
 
     private String[] toStringArray(List<Artifact> backpack){
@@ -107,7 +142,28 @@ public class GameText {
         return (String[]) nameArray.toArray();
     }
 
+    private void printList(List<Artifact> backpack){
+        int pos = 0;
+        while (pos < backpack.size()){
+            new TextRenderer().out(pos + ": " + backpack.get(pos).getName());
+            pos++;
+        }
+    }
+
+    private void printLoadout(List<Artifact> backpack, List<Artifact> equipment){
+        new TextRenderer().out(" Backpack");
+        if (backpack.size() == 0)
+            new TextRenderer().out("< empty >");
+        else
+            printList(backpack);
+        new TextRenderer().out(" Equipment");
+        if (equipment.size() == 0)
+            new TextRenderer().out("< empty >");
+        else
+            printList(equipment);
+    }
+
     private void die(){
-        System.out.println(" << YOU DIED >>");
+        new TextRenderer().out(" << YOU DIED >>");
     }
 }

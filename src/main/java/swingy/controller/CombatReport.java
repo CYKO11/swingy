@@ -12,9 +12,11 @@ public class CombatReport {
     public Hero result = null;
     public boolean proceed = false;
     public Enemy enemy = null;
+    public boolean validDrop = false;
 
     public CombatReport(Enemy enemy, Hero hero){
         escape = new Interaction().runAway();
+        validDrop = new Interaction().runAway();
         if (enemy == null)
             result = hero;
         else {
