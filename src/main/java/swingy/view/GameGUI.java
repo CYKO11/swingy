@@ -15,7 +15,7 @@ public class GameGUI extends JFrame implements ActionListener {
 //    private JPanel          Main2;
     private JPanel          MainBtns;
     private JLabel          Map;
-    private JButton         South, East, North, West;
+    private JButton         South, East, North, West, Inventory, TextMode, saveGame;
     private CombatReport    combatreport;
     private ActionEngine    game;
 
@@ -39,11 +39,9 @@ public class GameGUI extends JFrame implements ActionListener {
         West = new JButton("Move: West [a]");
         North = new JButton("Move: North [w]");
         East = new JButton("Move: East [d]");
-
-        System.out.println("Y: "+game.getWorld().boundsY);
-        System.out.println("X: "+game.getWorld().boundsX);
-        System.out.println("new Y: "+game.getWorld().boundsY*20);
-        System.out.println("new X: "+game.getWorld().boundsX*20);
+        Inventory = new JButton("Inventory");
+        TextMode = new JButton("Text Mode");
+        saveGame = new JButton("Save Game");
 
         if (game.getWorld().boundsY > 15)
             this.setSize(1500, 1500);
@@ -60,6 +58,9 @@ public class GameGUI extends JFrame implements ActionListener {
         MainBtns.add(North);
         MainBtns.add(South);
         MainBtns.add(East);
+        MainBtns.add(Inventory);
+        MainBtns.add(TextMode);
+        MainBtns.add(saveGame);
         Map.setHorizontalAlignment(SwingConstants.CENTER);
         Map.setVerticalAlignment(SwingConstants.CENTER);
 //        Main2.add(new JLabel(""));
@@ -73,6 +74,9 @@ public class GameGUI extends JFrame implements ActionListener {
         East.addActionListener(this);
         South.addActionListener(this);
         West.addActionListener(this);
+        Inventory.addActionListener(this);
+        TextMode.addActionListener(this);
+        saveGame.addActionListener(this);
 
         this.setResizable(false);
         this.setVisible(true);
@@ -203,6 +207,22 @@ public class GameGUI extends JFrame implements ActionListener {
                 }
                 this.Map.setText(game.getWorld().exportMapHtml());
             }
+        }
+        else if (ae.equals(this.Inventory)){
+            new InventoryGUI(this.game);
+        }
+        else if (ae.equals(this.TextMode)){
+            try {
+                setVisible(false); //you can't see me!
+                dispose(); //Destroy the JFrame object
+                new GameText(game);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
+        else if (ae.equals(this.saveGame)){
+            game.getGameData().saveHero();
+            JOptionPane.showMessageDialog(null,"You game session has been saved");
         }
 
     }
