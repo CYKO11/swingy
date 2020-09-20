@@ -42,13 +42,13 @@ public class Hero {
 
         String str = heroClass.toLowerCase();
         if (str.equals("normie")){
-            this.stats = new Stats(125,20,5,0,1);
+            this.stats = new Stats(125,20,5,1,1);
         }
         else if (str.equals("weeb")){
-            this.stats = new Stats(145,15,10,0,1);
+            this.stats = new Stats(145,15,10,1,1);
         }
         else if (str.equals("otaku")){
-            this.stats = new Stats(80,35,7,0,1);
+            this.stats = new Stats(80,35,7,1,1);
         }
         else if (str.equals("methhead")){
             this.stats = new Stats(100,25,0,500,1);

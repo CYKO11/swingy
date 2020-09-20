@@ -7,13 +7,13 @@ public class Stats {
     private int     Armor;
     private int     xp;
     private int     xpBar;
-    private int     Level;
+//    private int     Level;
 
     public Stats(long HP, long AtkDmg, int Armor, int xp, int Level) {
         this.HP = HP;
         this.AtkDmg = AtkDmg;
         this.Armor = Armor;
-        this.Level = Level;
+//        this.Level = Level;
         this.xpBar = Level * 1000 + (int)Math.pow(Level - 1, 2) * 450;
         this.xp = xp;
     }
@@ -39,6 +39,11 @@ public class Stats {
     }
 
     public int getLevel() {
-        return Level;
+        int lvl = 1;
+        while (xp > lvl * 1000 + (int)Math.pow(lvl - 1, 2) * 450){
+            lvl++;
+            System.out.println(lvl);
+        }
+        return lvl;
     }
 }

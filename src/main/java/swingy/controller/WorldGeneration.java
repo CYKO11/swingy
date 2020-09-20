@@ -16,6 +16,14 @@ public class WorldGeneration {
     private Hero hero = null;
     private List<Enemy> enemies = new ArrayList<>();
 
+    public int getHeroX() {
+        return heroX;
+    }
+
+    public int getHeroY() {
+        return heroY;
+    }
+
     public void generateWorld(Hero tmpHero){
         hero = tmpHero;
         int level = hero.getStats().getLevel();
@@ -47,6 +55,8 @@ public class WorldGeneration {
     }
 
     private boolean coordsTaken(int[] newCoords){
+        if (newCoords[0] == boundsX/2 && newCoords[1] == boundsY/2)
+            return true;
         if (!enemies.isEmpty()){
             for (Enemy element : enemies) {
                 if (element.getX() == newCoords[0] && element.getY() == newCoords[1] && (newCoords[0] != boundsX/2 && newCoords[1] != boundsY/2))
@@ -150,22 +160,28 @@ public class WorldGeneration {
 
     public String exportMapHtml(){
         String map = "<html>";
-        int y = boundsY;
-        int x = 0;
-        while (y >= 0){
-            x = 0;
-            while (x <= boundsX){
-                switch (getOccupants(x, y, exportWorld())){
-                    case 0  : map = map + "[ -- ]"; break;
-                    case 1  : map = map + "[ X ]"; break;
-                    case 2  : map = map + "[ H ]"; break;
+        int minY = heroY - 5;
+        int maxY = heroY + 5;
+        int minX;
+        int maxX = heroX + 10;
+        while (maxY >= minY){
+            minX = heroX - 10;
+            while (minX < maxX){
+                if ((maxY <= boundsY && maxY >= 0) && (minX <= boundsX && minX >= 0)){
+                    switch (getOccupants(minX, maxY, exportWorld())){
+                        case 0  : map = map + "[ -- ]"; break;
+                        case 1  : map = map + "[ E ]"; break;
+                        case 2  : map = map + "[ H ]"; break;
+                    }
+                } else {
+                    map = map + "[ X ]";
                 }
-                x++;
+                minX++;
             }
-            map = map + "|<br/>";
-            y--;
+            map = map + "<br/>";
+            maxY--;
         }
-        return map + "<html>";
+        return map + "</html>";
     }
 
     private int getOccupants(int x, int y, List<MapData> mapData){

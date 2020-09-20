@@ -36,9 +36,9 @@ public class GameGUI extends JFrame implements ActionListener {
         MainBtns = new JPanel();
         MainBtns.setBackground(myColor);
         South = new JButton("Move: South [s]");
-        West = new JButton("Move: West [a]");
-        North = new JButton("Move: North [w]");
-        East = new JButton("Move: East [d]");
+        West = new JButton("Move: West [w]");
+        North = new JButton("Move: North [n]");
+        East = new JButton("Move: East [e]");
         Inventory = new JButton("Inventory");
         TextMode = new JButton("Text Mode");
         saveGame = new JButton("Save Game");
@@ -98,10 +98,14 @@ public class GameGUI extends JFrame implements ActionListener {
                 game.getGameData().setTmpHero(combatreport.result);
                 game.getWorld().defeatEnemy(combatreport.enemy);
                 JOptionPane.showMessageDialog(null,"You won the battle");
-                int n = JOptionPane.showConfirmDialog(null,"You have found "+combatreport.drop.getName()+" do you wish to keep it?","Loot",JOptionPane.YES_NO_OPTION );
-                if (n == 0){
-                    game.getGameData().getTmpHero().updateBackPack(combatreport.drop);
+                if (combatreport.validDrop){
+                    int n = JOptionPane.showConfirmDialog(null,"You have found "+combatreport.drop.getName()+" do you wish to keep it?","Loot",JOptionPane.YES_NO_OPTION );
+                    if (n == 0){
+                        game.getGameData().getTmpHero().updateBackPack(combatreport.drop);
+                    }
                 }
+                System.out.println(game.getGameData().getTmpHero().getStats().getXp());
+                System.out.println(game.getGameData().getTmpHero().getStats().getLevel());
                 this.Map.setText(game.getWorld().exportMapHtml());
             }
         }
@@ -121,7 +125,7 @@ public class GameGUI extends JFrame implements ActionListener {
         Object ae = e.getSource();
 
         if (ae.equals(this.North)){
-            System.out.println("Move action North");
+//            System.out.println("Move action North");
             this.combatreport = game.preMove("n");
             if (combatreport.combat){
                 int n = JOptionPane.showConfirmDialog(null,"You have encountered and enemy! Do you wish to Fight?","Fight or die",JOptionPane.YES_NO_OPTION );
@@ -133,7 +137,7 @@ public class GameGUI extends JFrame implements ActionListener {
                 }
             }
             else {
-                System.out.println("Moving North");
+//                System.out.println("Moving North");
                 game.move("n", combatreport);
                 if (combatreport.proceed) {
                     game.genWorld(game.getGameData().getTmpHero());
@@ -143,7 +147,7 @@ public class GameGUI extends JFrame implements ActionListener {
             }
         }
         else if (ae.equals(this.East)){
-            System.out.println("Move action East");
+//            System.out.println("Move action East");
             this.combatreport = game.preMove("e");
             if (combatreport.combat){
                 int n = JOptionPane.showConfirmDialog(null,"You have encountered and enemy! Do you wish to Fight?","Fight or die",JOptionPane.YES_NO_OPTION );
@@ -155,7 +159,7 @@ public class GameGUI extends JFrame implements ActionListener {
                 }
             }
             else {
-                System.out.println("Moving East");
+//                System.out.println("Moving East");
                 game.move("e", combatreport);
                 if (combatreport.proceed) {
                     game.genWorld(game.getGameData().getTmpHero());
@@ -165,7 +169,7 @@ public class GameGUI extends JFrame implements ActionListener {
             }
         }
         else if (ae.equals(this.South)){
-            System.out.println("Move action South");
+//            System.out.println("Move action South");
             this.combatreport = game.preMove("s");
             if (combatreport.combat){
                 int n = JOptionPane.showConfirmDialog(null,"You have encountered and enemy! Do you wish to Fight?","Fight or die",JOptionPane.YES_NO_OPTION );
@@ -177,7 +181,7 @@ public class GameGUI extends JFrame implements ActionListener {
                 }
             }
             else {
-                System.out.println("Moving South");
+//                System.out.println("Moving South");
                 game.move("s", combatreport);
                 if (combatreport.proceed) {
                     game.genWorld(game.getGameData().getTmpHero());
@@ -187,7 +191,7 @@ public class GameGUI extends JFrame implements ActionListener {
             }
         }
         else if (ae.equals(this.West)){
-            System.out.println("Move action West");
+//            System.out.println("Move action West");
             this.combatreport = game.preMove("w");
             if (combatreport.combat){
                 int n = JOptionPane.showConfirmDialog(null,"You have encountered and enemy! Do you wish to Fight?","Fight or die",JOptionPane.YES_NO_OPTION );
@@ -199,7 +203,7 @@ public class GameGUI extends JFrame implements ActionListener {
                 }
             }
             else {
-                System.out.println("Moving West");
+//                System.out.println("Moving West");
                 game.move("w", combatreport);
                 if (combatreport.proceed) {
                     game.genWorld(game.getGameData().getTmpHero());
@@ -221,7 +225,7 @@ public class GameGUI extends JFrame implements ActionListener {
             }
         }
         else if (ae.equals(this.saveGame)){
-            game.getGameData().saveHero();
+            game.getGameData().saveState();
             JOptionPane.showMessageDialog(null,"You game session has been saved");
         }
 

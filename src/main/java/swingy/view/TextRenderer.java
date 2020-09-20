@@ -61,22 +61,29 @@ public class TextRenderer {
         System.in.read();
     }
     public void renderMap(WorldGeneration world){
-        int y = world.boundsY;
-        int x = 0;
-        while (y >= 0){
-            x = 0;
-            while (x <= world.boundsX){
-                switch (getOccupants(x, y, world.exportWorld())){
-                    case 0  : System.out.print("   "); break;
-                    case 1  : System.out.print("X  "); break;
-                    case 2  : System.out.print("H  "); break;
+        int minY = world.getHeroY() - 5;
+        int maxY = world.getHeroY() + 5;
+        int minX;
+        int maxX = world.getHeroX() + 10;
+        while (maxY >= minY){
+            minX = world.getHeroX() - 10;
+            while (minX < maxX){
+                if ((maxY <= world.boundsY && !(maxY < 0)) && (minX <= world.boundsX) && !(minX < 0)){
+                    switch (getOccupants(minX, maxY, world.exportWorld())){
+                        case 0  : System.out.print("   "); break;
+                        case 1  : System.out.print(" E "); break;
+                        case 2  : System.out.print(" H "); break;
+                    }
+                } else {
+                    System.out.print(" X ");
                 }
-                x++;
+                minX++;
             }
             System.out.println("|");
-            y--;
+            maxY--;
         }
     }
+
     private int getOccupants(int x, int y, List<MapData> mapData){
         for (MapData point : mapData){
             if (point.getCoords()[0] == x && point.getCoords()[1] == y){

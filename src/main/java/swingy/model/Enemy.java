@@ -10,7 +10,7 @@ public class Enemy {
     private int     y;
 
     public Enemy(int Herolvl, int x, int y){
-        this.enemyHP = 100 * Herolvl;
+        this.enemyHP = 10 * Herolvl;
         this.enemyAtkDmg = 5 * Herolvl;
         this.enemyArmor = 2 * Herolvl;
         this.enemyLevel = Herolvl;

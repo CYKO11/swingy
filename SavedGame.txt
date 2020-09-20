@@ -1,21 +1,9 @@
-Armour 10
-AtkDmg 153333333
-HP 145
-Lvl 1
-XP 20250
-Name CYKO
-heroClass weeb
+Armour 5
+AtkDmg 20
+HP 125
+Lvl 2
+XP 1501
+Name poes
+heroClass normie
 Backpack
-Two String Bow
-Ludens Echo
-Susanoo
-Waifu Panties
-Methheads Beanie
-Attack dog
-Methheads Beanie
-Nakagami
-Chair
-Waifu Panties
 equipment
-Chair
-B.R.A (battle ready armour)

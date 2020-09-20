@@ -1,10 +1,7 @@
 package swingy;
 
 import swingy.controller.ActionEngine;
-import swingy.view.GameText;
-import swingy.view.MainMenuGUI;
-import swingy.view.MainMenuText;
-import swingy.view.TextRenderer;
+import swingy.view.*;
 
 import java.io.IOException;
 
@@ -25,7 +22,7 @@ public class App {
                     if (gameEngine.getGameData().checkLoad()){
                         gameEngine.getGameData().loadHero();
                         gameEngine.init();
-                        new GameText(gameEngine);
+                        new GameGUI(gameEngine);
                     }
                     else {
                         new TextRenderer().out("No save game available");

@@ -17,5 +17,6 @@ public class CharCreationText {
                 1
         );
         gameEngine.getGameData().createHero(name, heroClass);
+        gameEngine.init();
     }
 }

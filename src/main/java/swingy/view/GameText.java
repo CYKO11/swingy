@@ -22,6 +22,7 @@ public class GameText {
             inventory(gameEngine);
         } else if (in.equals("gui")) {
             new GameGUI(gameEngine);
+            return;
         } else {
             CombatReport report = gameEngine.preMove(in);
             System.out.println(report.proceed);
@@ -55,15 +56,18 @@ public class GameText {
             gameEngine.getGameData().setTmpHero(report.result);
             gameEngine.getWorld().defeatEnemy(report.enemy);
             new TextRenderer().out("You Survived the battle with " + gameEngine.getGameData().tmpHero.getStats().getHP() + " HP");
-            System.out.println("You have found: " + report.drop.getName());
-            String in = new TextRenderer().render(
-                    "Do you wish to add this item to your inventory",
-                    new String[]{"y","n"},
-                    1
-            );
-            if (in.equals("y")){
-                gameEngine.getGameData().getTmpHero().updateBackPack(report.drop);
+            if (report.validDrop){
+                System.out.println("You have found: " + report.drop.getName());
+                String in = new TextRenderer().render(
+                        "Do you wish to add this item to your inventory",
+                        new String[]{"y","n"},
+                        1
+                );
+                if (in.equals("y")){
+                    gameEngine.getGameData().getTmpHero().updateBackPack(report.drop);
+                }
             }
+
         }
     }
 
@@ -129,7 +133,7 @@ public class GameText {
                     gameEngine.getGameData().getTmpHero().removeItem(gameEngine.getGameData().tmpHero.getBackPack().get(Integer.parseInt(itemNumber)));
                 }
             }
-            inventory(gameEngine);
+//            inventory(gameEngine);
         }
     }
 

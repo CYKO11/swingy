@@ -53,4 +53,10 @@ public class GameData {
 
     public void saveHero(){ new SaveGame().saveData(hero); }
 
+    public void saveState() {
+        Hero state = tmpHero.duplicateHero();
+        state.resetHealth();
+        new SaveGame().saveData(state);
+    }
+
 }
