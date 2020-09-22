@@ -12,15 +12,17 @@ public class GameText {
     public GameText(ActionEngine gameEngine) throws IOException {
         new TextRenderer().renderMap(gameEngine.getWorld());
         String in = new TextRenderer().render(
-                "Move (n,s,e,w), inventory (i) , extra commands (gui,exit)",
-                new String[]{"n","s","e","w","gui","exit","i"},
+                "Move (n,s,e,w), inventory (i) , extra commands gui(g) exit(e) save(s)",
+                new String[]{"n","s","e","w","g","e","i"},
                 1
         );
-        if (in.equals("exit")){
+        if (in.equals("e")){
             new MainMenuText(gameEngine);
         } else if (in.equals("i")) {
             inventory(gameEngine);
-        } else if (in.equals("gui")) {
+        } else if (in.equals("s")) {
+            gameEngine.getGameData().saveState();
+        } else if (in.equals("g")) {
             new GameGUI(gameEngine);
             return;
         } else {

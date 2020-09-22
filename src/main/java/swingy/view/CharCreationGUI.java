@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class CharCreationGUI extends JFrame implements ActionListener {
 
@@ -22,7 +23,8 @@ public class CharCreationGUI extends JFrame implements ActionListener {
     public CharCreationGUI(ActionEngine gameEngine){
 
         this.game = gameEngine;
-        Color myColor = new Color(90,151,255);
+//        Color myColor = new Color(90,151,255);
+        Color myColor = new Color(200,200,200);
         this.setTitle("World of Anime");
         this.getContentPane().setBackground(myColor);
         this.setSize(450, 400);
@@ -120,7 +122,11 @@ public class CharCreationGUI extends JFrame implements ActionListener {
                 game.init();
                 setVisible(false); //you can't see me!
                 dispose(); //Destroy the JFrame object
-                new GameGUI(game);
+                try {
+                    new GameGUI(game);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
             else if(textField.getText().equals("") && blank.getText().equals(" ")){
                 JOptionPane.showMessageDialog(null,"You must enter a Name and select a Class");

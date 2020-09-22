@@ -33,6 +33,7 @@ public class InventoryGUI extends JFrame implements ActionListener {
 
         this.game = gameEngine;
         Color myColor = new Color(90,151,255);
+//        Color myColor = new Color(200,200,200);
         this.setTitle("World of Anime");
         this.getContentPane().setBackground(Color.BLUE);
         this.setSize(450, 400);
@@ -64,9 +65,9 @@ public class InventoryGUI extends JFrame implements ActionListener {
             hp = 0;
         }
         itemStats = new JPanel(new GridLayout(3,1));
-        armorL = new JLabel("Armor: "+armor);
-        atkL = new JLabel("Armor: "+atk);
-        hpL = new JLabel("Armor: "+hp);
+        armorL = new JLabel("Armor: "+ armor);
+        atkL = new JLabel("Atk: "+atk);
+        hpL = new JLabel("HP: "+ hp);
 
         mainInv.setBackground(myColor);
         btns.setBackground(myColor);
@@ -109,11 +110,11 @@ public class InventoryGUI extends JFrame implements ActionListener {
             listSize = bag.size();
             if (listSize > 0){
                 if ((this.index+1) < listSize){
-                    System.out.println(this.index);
+//                    System.out.println(this.index);
                     this.index += 1;
                 }
                 else {
-                    System.out.println(this.index);
+//                    System.out.println(this.index);
                     this.index = 0;
                 }
                 this.backPack = bag.get(this.index);
@@ -136,7 +137,7 @@ public class InventoryGUI extends JFrame implements ActionListener {
                     index -= 1;
                 else
                     index = listSize-1;
-                System.out.println(this.index);
+//                System.out.println(this.index);
                 this.backPack = bag.get(this.index);
                 this.itemName.setText(backPack.getName());
                 atk = backPack.getDamage();
@@ -153,7 +154,7 @@ public class InventoryGUI extends JFrame implements ActionListener {
         else if (ae.equals(this.remove)){
             listSize = bag.size();
             if (listSize > 0){
-                System.out.println(this.index);
+//                System.out.println(this.index);
                 bag.remove(this.index);
             }else {
                 JOptionPane.showMessageDialog(null,"No items in inventory");
@@ -178,7 +179,7 @@ public class InventoryGUI extends JFrame implements ActionListener {
         }
         else if (ae.equals(this.equip)){
             listSize = bag.size();
-            System.out.println(this.index);
+//            System.out.println(this.index);
             if (listSize > 0){
                 JOptionPane.showMessageDialog(null,"You have equipped "+bag.get(this.index).getName());
                 game.getGameData().getTmpHero().equipItem(bag.get(this.index));

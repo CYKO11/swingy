@@ -1,9 +1,10 @@
-Armour 5
-AtkDmg 20
-HP 125
-Lvl 2
-XP 1501
-Name poes
-heroClass normie
+Armour 10
+AtkDmg 15
+HP 145
+Lvl 1
+XP 751
+Name weeb
+heroClass weeb
 Backpack
+Two String Bow
 equipment

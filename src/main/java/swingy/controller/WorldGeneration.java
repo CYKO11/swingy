@@ -27,8 +27,8 @@ public class WorldGeneration {
     public void generateWorld(Hero tmpHero){
         hero = tmpHero;
         int level = hero.getStats().getLevel();
-        boundsX = (level-1) * 5+10-(level % 2);
-        boundsY = (level-1) * 5+10-(level % 2);
+        boundsX = (level-1) * 5+10-(level % 2) + 1;
+        boundsY = (level-1) * 5+10-(level % 2) + 1;
         heroX = boundsX / 2;
         heroY = boundsY / 2;
         generateEnemies(level);
@@ -56,6 +56,8 @@ public class WorldGeneration {
 
     private boolean coordsTaken(int[] newCoords){
         if (newCoords[0] == boundsX/2 && newCoords[1] == boundsY/2)
+            return true;
+        if (newCoords[0] < 0 || newCoords[1] < 0)
             return true;
         if (!enemies.isEmpty()){
             for (Enemy element : enemies) {
@@ -169,12 +171,12 @@ public class WorldGeneration {
             while (minX < maxX){
                 if ((maxY <= boundsY && maxY >= 0) && (minX <= boundsX && minX >= 0)){
                     switch (getOccupants(minX, maxY, exportWorld())){
-                        case 0  : map = map + "[ -- ]"; break;
-                        case 1  : map = map + "[ E ]"; break;
-                        case 2  : map = map + "[ H ]"; break;
+                        case 0  : map = map + "[ -- ] "; break;
+                        case 1  : map = map + "[ X ] "; break;
+                        case 2  : map = map + "[ H ] "; break;
                     }
                 } else {
-                    map = map + "[ X ]";
+                    map = map + "[ B ] ";
                 }
                 minX++;
             }

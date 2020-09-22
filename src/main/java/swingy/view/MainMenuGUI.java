@@ -28,7 +28,8 @@ public class MainMenuGUI extends JFrame implements ActionListener{
     public MainMenuGUI(ActionEngine gameEngine) throws IOException {
 
         this.game = gameEngine;
-        Color myColor = new Color(90,151,255);
+//        Color myColor = new Color(90,151,255);
+        Color myColor = new Color(200,200,200);
         this.setTitle("World of Anime");
         this.getContentPane().setBackground(Color.BLUE);
         this.setSize(450, 400);
@@ -102,7 +103,11 @@ public class MainMenuGUI extends JFrame implements ActionListener{
                 game.init();
                 setVisible(false); //you can't see me!
                 dispose(); //Destroy the JFrame object
-                new GameGUI(game);
+                try {
+                    new GameGUI(game);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         }
         else if (ae.equals(this.textMode)){
