@@ -16,7 +16,11 @@ public class CharCreationText {
                 new String[]{"normie","weeb","otaku","MethHead"},
                 1
         );
-        gameEngine.getGameData().createHero(name, heroClass);
-        gameEngine.init();
+        if (gameEngine.getGameData().createHero(name, heroClass))
+            gameEngine.init();
+        else {
+            new TextRenderer().outAwait("Invalid name or class input");
+            new CharCreationText(gameEngine);
+        }
     }
 }

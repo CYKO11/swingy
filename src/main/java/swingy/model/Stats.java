@@ -1,19 +1,25 @@
 package swingy.model;
 
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
+
 public class Stats {
 
+    @Positive
     private long    HP;
+    @Positive
     private long    AtkDmg;
+    @Positive
     private int     Armor;
+    @PositiveOrZero
     private int     xp;
+    @PositiveOrZero
     private int     xpBar;
-//    private int     Level;
 
     public Stats(long HP, long AtkDmg, int Armor, int xp, int Level) {
         this.HP = HP;
         this.AtkDmg = AtkDmg;
         this.Armor = Armor;
-//        this.Level = Level;
         this.xpBar = Level * 1000 + (int)Math.pow(Level - 1, 2) * 450;
         this.xp = xp;
     }

@@ -118,14 +118,17 @@ public class CharCreationGUI extends JFrame implements ActionListener {
             System.out.println(blank.getText());
             if (!textField.getText().equals("") && !blank.getText().equals(" ")){
                 System.out.println("Starting Game");
-                this.game.getGameData().createHero(textField.getText(), blank.getText());
-                game.init();
-                setVisible(false); //you can't see me!
-                dispose(); //Destroy the JFrame object
-                try {
-                    new GameGUI(game);
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
+                if (this.game.getGameData().createHero(textField.getText(), blank.getText())){
+                    game.init();
+                    setVisible(false); //you can't see me!
+                    dispose(); //Destroy the JFrame object
+                    try {
+                        new GameGUI(game);
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null,"Invalid class and or name");
                 }
             }
             else if(textField.getText().equals("") && blank.getText().equals(" ")){

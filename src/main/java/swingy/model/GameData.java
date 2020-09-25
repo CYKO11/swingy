@@ -5,8 +5,14 @@ import swingy.controller.WorldGeneration;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang.SerializationUtils;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 public class GameData {
     private Hero hero = null;
@@ -25,10 +31,18 @@ public class GameData {
 
     public void duplicateHero(){ this.tmpHero = hero.duplicateHero(); }
 
-    public void createHero(String name, String heroClass){
+    public boolean createHero(String name, String heroClass){
         hero = new Hero(name, heroClass);
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Hero>> violations;
+        violations = validator.validate(hero);
+        if (violations.size() > 0){
+            return false;
+        }
         duplicateHero();
         saveState();
+        return true;
     }
 
     public boolean checkLoad() {
