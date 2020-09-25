@@ -1,12 +1,13 @@
 Armour 5
 AtkDmg 20
-HP 125
-Lvl 3
-XP 3001
+HP 875
+Lvl 7
+XP 20251
 Name why
 heroClass normie
 Backpack
 Scissor Blades
 Ashes Cap
 Scouts Uniform
+Mushroom Cap
 equipment

@@ -84,16 +84,16 @@ public class Hero {
     }
     public void resetHealth(){
         if (getHeroClass().equals("normie")){
-            this.stats = new Stats(125, stats.getAtkDmg(), stats.getArmor(), stats.getXp(), stats.getLevel());
+            this.stats = new Stats(125 * getStats().getLevel(), stats.getAtkDmg(), stats.getArmor(), stats.getXp(), stats.getLevel());
         }
         else if (getHeroClass().equals("weeb")){
-            this.stats = new Stats(145,stats.getAtkDmg(), stats.getArmor(), stats.getXp(), stats.getLevel());
+            this.stats = new Stats(145 * getStats().getLevel(),stats.getAtkDmg(), stats.getArmor(), stats.getXp(), stats.getLevel());
         }
         else if (getHeroClass().equals("otaku")){
-            this.stats = new Stats(80,stats.getAtkDmg(), stats.getArmor(), stats.getXp(), stats.getLevel());
+            this.stats = new Stats(80 * getStats().getLevel(),stats.getAtkDmg(), stats.getArmor(), stats.getXp(), stats.getLevel());
         }
         else if (getHeroClass().equals("methhead")){
-            this.stats = new Stats(100,stats.getAtkDmg(), stats.getArmor(), stats.getXp(), stats.getLevel());
+            this.stats = new Stats(100 * getStats().getLevel(),stats.getAtkDmg(), stats.getArmor(), stats.getXp(), stats.getLevel());
         }
         else {
 //            System.out.println("Invalid Class");

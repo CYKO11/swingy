@@ -9,7 +9,7 @@ public class Interaction {
 
         long Hatk = tmphero.getStats().getAtkDmg() + tmphero.getEquipmentStats()[0] * (tmphero.getStats().getLevel() / 3);
         long Eatk = enemy.getEnemyAtkDmg();
-        long HHP = (tmphero.getStats().getHP() + tmphero.getEquipmentStats()[1] + tmphero.getEquipmentStats()[1]) * (tmphero.getStats().getLevel());
+        long HHP = (tmphero.getStats().getHP() + tmphero.getEquipmentStats()[1] + tmphero.getEquipmentStats()[1]);
         long EHP = enemy.getEnemyHP();
         long dmg;
         int XP;
