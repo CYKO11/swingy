@@ -2,8 +2,8 @@ package swingy.model;
 
 public class Enemy {
 
-    private int    enemyHP;
-    private int    enemyAtkDmg;
+    private int     enemyHP;
+    private int     enemyAtkDmg;
     private int     enemyArmor;
     private int     enemyLevel;
     private int     x;

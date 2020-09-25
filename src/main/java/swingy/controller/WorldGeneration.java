@@ -26,9 +26,10 @@ public class WorldGeneration {
 
     public void generateWorld(Hero tmpHero){
         hero = tmpHero;
+        hero.resetHealth();
         int level = hero.getStats().getLevel();
-        boundsX = (level-1) * 5+10-(level % 2) + 1;
-        boundsY = (level-1) * 5+10-(level % 2) + 1;
+        boundsX = (level-1) * 5 + 10 - (level % 2) + 1;
+        boundsY = (level-1) * 5 + 10 - (level % 2) + 1;
         heroX = boundsX / 2;
         heroY = boundsY / 2;
         generateEnemies(level);

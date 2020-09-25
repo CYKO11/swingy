@@ -62,7 +62,7 @@ public class Hero {
             this.stats = new Stats(100,25,0,500,1);
         }
         else {
-            System.out.println("Invalid Class");
+//            System.out.println("Invalid Class");
         }
     }
 
@@ -96,7 +96,7 @@ public class Hero {
             this.stats = new Stats(100,stats.getAtkDmg(), stats.getArmor(), stats.getXp(), stats.getLevel());
         }
         else {
-            System.out.println("Invalid Class");
+//            System.out.println("Invalid Class");
         }
     }
 
@@ -165,7 +165,6 @@ public class Hero {
 
 
     public void updateConditions(int xp) {
-        System.out.println("xpbar: "+stats.getXpBar());
 
         this.stats = new Stats(
                 stats.getHP(),

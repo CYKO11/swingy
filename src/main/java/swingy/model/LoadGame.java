@@ -70,7 +70,7 @@ public class LoadGame {
             heroObj = new Hero(Name, Class);
             heroObj.initializeSave(Armour, AtkDmg, HP, Lvl, Xp, Name, Class, this.backPack, this.equipped);
             violations = validator.validate(heroObj);
-            System.out.println(violations.size() > 0);
+//            System.out.println(violations.size() > 0);
             if (violations.size() > 0){
                 return null;
             }

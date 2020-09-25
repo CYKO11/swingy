@@ -13,7 +13,7 @@ public class  SaveGame {
             int i = 7;
             FileWriter myWriter = new FileWriter("SavedGame.txt");
             String[] data = new String[57];
-            System.out.println("Saving game...");
+//            System.out.println("Saving game...");
             data[0] = String.valueOf("Armour "+ObjHero.getStats().getArmor());
             data[1] = String.valueOf("AtkDmg "+ObjHero.getStats().getAtkDmg());
             data[2] = String.valueOf("HP "+ObjHero.getStats().getHP());
@@ -44,7 +44,7 @@ public class  SaveGame {
             myWriter.close();
 
         } catch (IOException e) {
-            System.out.println("Well shit son");
+//            System.out.println("Well shit son");
             e.printStackTrace();
         }
     }

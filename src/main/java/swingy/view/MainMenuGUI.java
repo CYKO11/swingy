@@ -91,13 +91,13 @@ public class MainMenuGUI extends JFrame implements ActionListener{
         Object ae = e.getSource();
 
         if (ae.equals(this.newGame)){
-            System.out.println("NewGame selected");
+//            System.out.println("NewGame selected");
             setVisible(false); //you can't see me!
             dispose(); //Destroy the JFrame object
             new CharCreationGUI(this.game);
         }
         else if (ae.equals(this.loadGame)){
-            System.out.println("loading Game");
+//            System.out.println("loading Game");
             if (game.getGameData().checkLoad()) {
                 game.getGameData().loadHero();
                 game.init();

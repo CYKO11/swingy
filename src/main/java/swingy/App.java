@@ -13,7 +13,7 @@ public class App {
         ActionEngine gameEngine =  new ActionEngine();
         try{
             if (args.length == 1){
-                if (args[0].equals("text"))
+                if (args[0].equals("console"))
                     new MainMenuText(gameEngine);
                 else if (args[0].equals("gui"))
                     new MainMenuGUI(gameEngine);
@@ -21,7 +21,8 @@ public class App {
                     if (gameEngine.getGameData().checkLoad()){
                         gameEngine.getGameData().loadHero();
                         gameEngine.init();
-                        new GameGUI(gameEngine);
+                        new GameText(gameEngine);
+//                        new GameGUI(gameEngine);
                     }
                     else {
                         new TextRenderer().out("No save game available");

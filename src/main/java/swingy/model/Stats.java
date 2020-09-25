@@ -42,7 +42,7 @@ public class Stats {
         int lvl = 1;
         while (xp > lvl * 1000 + (int)Math.pow(lvl - 1, 2) * 450){
             lvl++;
-            System.out.println(lvl);
+//            System.out.println(lvl);
         }
         return lvl;
     }

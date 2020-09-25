@@ -1,6 +1,5 @@
 package swingy.controller;
 
-import sun.jvm.hotspot.debugger.win32.coff.COMDATSelectionTypes;
 import swingy.model.Artifact;
 import swingy.model.Enemy;
 import swingy.model.Hero;

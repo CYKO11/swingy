@@ -1,6 +1,5 @@
 package swingy.view;
 
-import sun.jvm.hotspot.ui.classbrowser.ClassBrowserPanel;
 import swingy.controller.ActionEngine;
 import swingy.controller.CombatReport;
 import swingy.model.MapData;

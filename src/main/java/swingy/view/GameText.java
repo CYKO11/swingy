@@ -12,16 +12,16 @@ public class GameText {
     public GameText(ActionEngine gameEngine) throws IOException {
         new TextRenderer().renderMap(gameEngine.getWorld());
         String in = new TextRenderer().getInput(
-                "Move (n,s,e,w), inventory (i) , extra commands gui(g) exit(e) save(s)",
-                new String[]{"n","s","e","w","g","e","i"},
+                "Move (n,s,e,w), extra commands gui(g) exit(ex)",
+                new String[]{"n","s","e","w","g","ex"},
                 1
         );
-        if (in.equals("e")){
+        if (in.equals("ex")){
             new MainMenuText(gameEngine);
         } else if (in.equals("i")) {
-            inventory(gameEngine);
-        } else if (in.equals("s")) {
-            gameEngine.getGameData().saveState();
+//            inventory(gameEngine);
+        } else if (in.equals("save")) {
+//            gameEngine.getGameData().saveState();
         } else if (in.equals("g")) {
             new GameGUI(gameEngine);
             return;
@@ -32,7 +32,7 @@ public class GameText {
                 gameEngine.getGameData().nextMap();
                 gameEngine.genWorld(gameEngine.getGameData().tmpHero);
                 new GameText(gameEngine);
-            } else if (report.combat){
+            } else if (report.combat) {
                 in = new TextRenderer().getInput(
                         " << You have encountered an enemy >>\n\t(c): Cower and Run\n\t(f): Stand and Fight",
                         new String[]{"c","f"},
@@ -42,18 +42,23 @@ public class GameText {
                     new TextRenderer().outAwait("\n <<< You live another day >>> \n  > press Enter to continue");
                 } else {
                     new TextRenderer().outAwait("\n <<< Do or die >>> \n  > press Enter to proceed");
-                    fight(report, gameEngine);
+                    if (fight(report, gameEngine)){
+                        new GameText(gameEngine);
+                    } else {
+                        new MainMenuText(gameEngine);
+                    }
                 }
             } else {
                 gameEngine.move(in, report);
+                new GameText(gameEngine);
             }
-            new GameText(gameEngine);
         }
     }
 
-    private void fight(CombatReport report, ActionEngine gameEngine) throws IOException {
+    private boolean fight(CombatReport report, ActionEngine gameEngine) throws IOException {
         if (report.result == null){
             die();
+            return false;
         } else {
             gameEngine.getGameData().setTmpHero(report.result);
             gameEngine.getWorld().defeatEnemy(report.enemy);
@@ -66,10 +71,12 @@ public class GameText {
                         1
                 );
                 if (in.equals("y")){
-                    gameEngine.getGameData().getTmpHero().updateBackPack(report.drop);
+                    gameEngine.getGameData().getTmpHero().equipItem(report.drop);//updateBackPack(report.drop);
                 }
+            } else {
+                new TextRenderer().outAwait("Press Enter to continue");
             }
-
+            return true;
         }
     }
 
@@ -92,6 +99,7 @@ public class GameText {
                     inventory(gameEngine);
                 }
                 printList(gameEngine.getGameData().tmpHero.getBackPack());
+//                System.out.println(Integer.toString(gameEngine.getGameData().tmpHero.getBackPack().size()));
                 String itemNumber = new TextRenderer().getInput(
                         "What item do you wish to equip, input r to abort selection",
                         new String[]{Integer.toString(gameEngine.getGameData().tmpHero.getBackPack().size())},
@@ -171,5 +179,6 @@ public class GameText {
 
     private void die(){
         new TextRenderer().out(" << YOU DIED >>");
+        return;
     }
 }
