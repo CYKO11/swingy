@@ -146,6 +146,7 @@ class Item {
         if (chance <= 0.5) return 2;
         return 1;
     }
+
     public int countWeapons(int rarity){
         int len = items.length - 1;
         int weapons = 0;

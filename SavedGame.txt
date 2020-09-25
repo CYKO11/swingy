@@ -1,10 +1,12 @@
-Armour 7
-AtkDmg 35
-HP 80
-Lvl 2
-XP 1501
+Armour 5
+AtkDmg 20
+HP 125
+Lvl 3
+XP 3001
 Name why
-heroClass otaku
+heroClass normie
 Backpack
-Tattered Rangs
+Scissor Blades
+Ashes Cap
+Scouts Uniform
 equipment
