@@ -40,6 +40,7 @@ public class GameText {
                 );
                 if (in.equals("c") && report.escape){
                     new TextRenderer().outAwait("\n <<< You live another day >>> \n  > press Enter to continue");
+                    new GameText(gameEngine);
                 } else {
                     new TextRenderer().outAwait("\n <<< Do or die >>> \n  > press Enter to proceed");
                     if (fight(report, gameEngine)){
