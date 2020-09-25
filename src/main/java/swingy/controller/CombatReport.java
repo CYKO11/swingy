@@ -21,7 +21,7 @@ public class CombatReport {
             result = hero;
         else {
             this.enemy = enemy;
-            drop = new Artifact();
+            drop = enemy.getDrop();
             combat = true;
             result = new Interaction().combat(hero, enemy);
         }

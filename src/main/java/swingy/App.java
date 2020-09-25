@@ -4,7 +4,6 @@ import swingy.controller.ActionEngine;
 import swingy.view.*;
 
 import java.io.IOException;
-
 /**
  * Hello world!
  *

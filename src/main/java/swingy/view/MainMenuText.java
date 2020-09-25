@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class MainMenuText {
     public MainMenuText(ActionEngine gameEngine) throws IOException {
-        String in = new TextRenderer().render(
+        String in = new TextRenderer().getInput(
                 " < Menu > \n(l): load game\n(n): new game\n(e): exit\n(g): gui",
                 new String[]{"l","n","e","g","test"},
                 1

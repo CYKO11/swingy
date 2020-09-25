@@ -68,7 +68,7 @@ public class ActionEngine {
         // test hero class
         gameData.duplicateHero();
         gameData.getHero();
-        gameData.getTmpHero().updateBackPack(new Artifact());
+        gameData.getTmpHero().updateBackPack(new Artifact(Math.random()));
 
         // Map test
         genWorld(gameData.getHero());
@@ -120,9 +120,9 @@ public class ActionEngine {
         System.out.println(world.heroX + " " + world.heroY);
 
         // equipItems Test
-        gameData.tmpHero.updateBackPack(new Artifact());
-        gameData.tmpHero.updateBackPack(new Artifact());
-        gameData.tmpHero.updateBackPack(new Artifact());
+        gameData.tmpHero.updateBackPack(new Artifact(Math.random()));
+        gameData.tmpHero.updateBackPack(new Artifact(Math.random()));
+        gameData.tmpHero.updateBackPack(new Artifact(Math.random()));
         gameData.tmpHero.equipItem(gameData.tmpHero.getBackPack().get(0));
         echoInv();
         System.out.println("\nunequiping item");

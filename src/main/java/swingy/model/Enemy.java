@@ -2,18 +2,21 @@ package swingy.model;
 
 public class Enemy {
 
-    private long    enemyHP;
-    private long    enemyAtkDmg;
+    private int    enemyHP;
+    private int    enemyAtkDmg;
     private int     enemyArmor;
     private int     enemyLevel;
     private int     x;
     private int     y;
+    private Artifact drop;
 
     public Enemy(int Herolvl, int x, int y){
-        this.enemyHP = 10 * Herolvl;
-        this.enemyAtkDmg = 5 * Herolvl;
-        this.enemyArmor = 2 * Herolvl;
-        this.enemyLevel = Herolvl;
+        double chance = Math.random();
+        this.drop = new Artifact(chance);
+        this.enemyHP = (int) (10 * Herolvl * chance);
+        this.enemyAtkDmg = (int) (5 * Herolvl * chance);
+        this.enemyArmor = (int) (2 * Herolvl * chance);
+        this.enemyLevel = (int) (Herolvl * chance);
         this.x = x;
         this.y = y;
     }
@@ -26,13 +29,7 @@ public class Enemy {
         return enemyAtkDmg;
     }
 
-    public int getEnemyArmor() {
-        return enemyArmor;
-    }
-
-    public int getEnemyLevel() {
-        return enemyLevel;
-    }
+    public Artifact getDrop(){ return this.drop; }
 
     public int getX(){ return x; };
 

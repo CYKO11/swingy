@@ -1,7 +1,4 @@
 package swingy.view;
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
-import com.sun.source.tree.BreakTree;
-import swingy.controller.Interaction;
 import swingy.controller.WorldGeneration;
 import swingy.model.MapData;
 
@@ -9,10 +6,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
-import java.util.Map;
 
 public class TextRenderer {
-    public String render(String out, String[] options, int inputCheckToggle) throws IOException {
+    public String getInput(String out, String[] options, int inputCheckToggle) throws IOException {
         System.out.println(out);
         System.out.print(">>> ");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -22,7 +18,7 @@ public class TextRenderer {
             if (inputCheckToggle == 0) {
                 if (in.length() < 2){
                     System.out.println("\n INPUT TOO SHORT");
-                    return render(out, options, inputCheckToggle);
+                    return getInput(out, options, inputCheckToggle);
                 }
                 return in;
             } else if (inputCheckToggle == 2) {
@@ -40,7 +36,7 @@ public class TextRenderer {
             pos++;
         }
         System.out.println("\n INVALID INPUT");
-        return render(out, options, inputCheckToggle);
+        return getInput(out, options, inputCheckToggle);
     }
 
     private boolean checkParse(String number){
@@ -60,6 +56,7 @@ public class TextRenderer {
         System.out.println(in);
         System.in.read();
     }
+
     public void renderMap(WorldGeneration world){
         int minY = world.getHeroY() - 5;
         int maxY = world.getHeroY() + 5;

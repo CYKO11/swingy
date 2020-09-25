@@ -2,12 +2,20 @@ package swingy.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.validation.constraints.Email;
 
 
 public class Hero {
 
     private Stats               stats;
+    @NotNull(message = "Name cannot be null")
     private String              name;
+    @NotNull(message = "Name cannot be null")
     private String              heroClass;
     private int                 currX;
     private int                 currY;
@@ -175,22 +183,6 @@ public class Hero {
                     stats.getXp() - stats.getXpBar(),
                     stats.getLevel() + 1);
         }
-    }
-
-    public void setCurrX(int currX) {
-        this.currX = currX;
-    }
-
-    public void setCurrY(int currY) {
-        this.currY = currY;
-    }
-
-    public int getCurrX() {
-        return currX;
-    }
-
-    public int getCurrY() {
-        return currY;
     }
 
 }

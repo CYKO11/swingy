@@ -13,8 +13,6 @@ public class GameData {
     public Hero tmpHero = null;
     public Hero loadBuffer = null;
 
-    public Hero getLoadBuffer() { return loadBuffer; }
-
     public Hero getHero() {
         return hero;
     }

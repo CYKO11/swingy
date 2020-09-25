@@ -19,8 +19,8 @@ public class Artifact {
         type = drop[5];
     }
 
-    public Artifact(){
-        String[] drop = Item.item().getDrop();
+    public Artifact(double strength){
+        String[] drop = Item.item().getDrop(strength);
         name = drop[0];
         damage = Integer.parseInt(drop[1]);
         armour = Integer.parseInt(drop[2]);
@@ -99,10 +99,10 @@ class Item {
     public static Item item(){
         return (item);
     }
-    public String[] getDrop() {
-        int rarity = rollRarity();
+    public String[] getDrop(double randomEnemy) {
+        int rarity = rollRarity(randomEnemy);
         while (countWeapons(rarity) == 0){
-            rarity = rollRarity();
+            rarity = rollRarity(randomEnemy);
         }
         int weapon = rollItem(rarity);
         return items[weapon];
@@ -133,15 +133,15 @@ class Item {
         return drops[(int) (Math.random() * ((drops.length - 1) + 1))];
     }
 
-    public int rollRarity(){
+    public int rollRarity(double chanceEnemy){
         // r5 1% chance
         // r4 5% chance
         // r3 14% chance
         // r2 30% chance
         // r1 50% chance
         double chance = Math.random();
-        if (chance <= 0.01) return 5;
-        if (chance <= 0.06) return 4;
+        if (chance - (chanceEnemy/10) <= 0.01) return 5;
+        if (chance - (chanceEnemy/5) <= 0.06) return 4;
         if (chance <= 0.2) return 3;
         if (chance <= 0.5) return 2;
         return 1;

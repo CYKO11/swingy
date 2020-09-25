@@ -11,7 +11,7 @@ import java.util.List;
 public class GameText {
     public GameText(ActionEngine gameEngine) throws IOException {
         new TextRenderer().renderMap(gameEngine.getWorld());
-        String in = new TextRenderer().render(
+        String in = new TextRenderer().getInput(
                 "Move (n,s,e,w), inventory (i) , extra commands gui(g) exit(e) save(s)",
                 new String[]{"n","s","e","w","g","e","i"},
                 1
@@ -33,7 +33,7 @@ public class GameText {
                 gameEngine.genWorld(gameEngine.getGameData().tmpHero);
                 new GameText(gameEngine);
             } else if (report.combat){
-                in = new TextRenderer().render(
+                in = new TextRenderer().getInput(
                         " << You have encountered an enemy >>\n\t(c): Cower and Run\n\t(f): Stand and Fight",
                         new String[]{"c","f"},
                         1
@@ -60,7 +60,7 @@ public class GameText {
             new TextRenderer().out("You Survived the battle with " + gameEngine.getGameData().tmpHero.getStats().getHP() + " HP");
             if (report.validDrop){
                 System.out.println("You have found: " + report.drop.getName());
-                String in = new TextRenderer().render(
+                String in = new TextRenderer().getInput(
                         "Do you wish to add this item to your inventory",
                         new String[]{"y","n"},
                         1
@@ -74,7 +74,7 @@ public class GameText {
     }
 
     private void inventory(ActionEngine gameEngine) throws IOException {
-        String in = new TextRenderer().render(
+        String in = new TextRenderer().getInput(
                 "\nWhich actions do you wish to perform\n(e): equip\n(u): unequip\n(d): delete \n(l) list inventory and equipped\n(r) return to game",
                 new String[]{"e","u","d","r","l"},
                 1
@@ -92,7 +92,7 @@ public class GameText {
                     inventory(gameEngine);
                 }
                 printList(gameEngine.getGameData().tmpHero.getBackPack());
-                String itemNumber = new TextRenderer().render(
+                String itemNumber = new TextRenderer().getInput(
                         "What item do you wish to equip, input r to abort selection",
                         new String[]{Integer.toString(gameEngine.getGameData().tmpHero.getBackPack().size())},
                         2
@@ -108,7 +108,7 @@ public class GameText {
                     inventory(gameEngine);
                 }
                 printList(gameEngine.getGameData().tmpHero.getEquipped());
-                String itemNumber = new TextRenderer().render(
+                String itemNumber = new TextRenderer().getInput(
                         "What item do you wish to unequip, input r to abort selection",
                         new String[]{Integer.toString(gameEngine.getGameData().tmpHero.getEquipped().size())},
                         2
@@ -124,7 +124,7 @@ public class GameText {
                     inventory(gameEngine);
                 }
                 printList(gameEngine.getGameData().tmpHero.getBackPack());
-                String itemNumber = new TextRenderer().render(
+                String itemNumber = new TextRenderer().getInput(
                         "What item do you wish to remove, input r to abort selection",
                         new String[]{Integer.toString(gameEngine.getGameData().tmpHero.getBackPack().size())},
                         2
