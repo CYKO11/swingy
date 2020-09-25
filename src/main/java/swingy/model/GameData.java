@@ -27,6 +27,8 @@ public class GameData {
 
     public void createHero(String name, String heroClass){
         hero = new Hero(name, heroClass);
+        duplicateHero();
+        saveState();
     }
 
     public boolean checkLoad() {

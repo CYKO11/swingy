@@ -76,10 +76,10 @@ public class LoadGame {
             }
             return heroObj;
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return (null);
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return (null);
         }
     }
